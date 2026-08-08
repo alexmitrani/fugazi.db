@@ -1,0 +1,114 @@
+---
+title: "Data Catalogue"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Data Catalogue}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  eval = FALSE,
+  comment = "#>"
+)
+```
+
+## Introduction
+
+`fugazi.db` ships six lazy-loaded data objects - the primary source data
+behind the Fugazi Live Series. This vignette describes each table and, most
+importantly, **how they join together** - see each object's own help page
+(e.g. `?fls_data`) for the full column-by-column description.
+
+This vignette contains no runnable code of its own - `fugazi.db` has no
+functions, so every example below uses
+[`Repeatr`](https://github.com/alexmitrani/Repeatr), which depends on
+`fugazi.db` for its raw inputs. Install both to run these examples.
+
+## The tables
+
+| Object | One row per | Primary/join keys |
+|---|---|---|
+| `fls_data` | show | `gid`; `country`+`city`+`venue` |
+| `fls_tags_raw` | tagged MP3 track | `album` (encodes date/venue/city/subdivision/country as text - not a direct `gid` join, see below) |
+| `songvarslookup` | song | `song` (title text); `releaseid` |
+| `releases` | release (album/EP) | `releaseid` |
+| `song_tempo_bpm_data` | song | `song` (title text) |
+| `fls_venue_geocoding` | venue | `country`+`city`+`venue` |
+
+## Join keys
+
+### `gid` - the show identifier
+
+`gid` is a slug built from city, country, and date (e.g.
+`washington-dc-usa-90387`), and is the primary key of `fls_data`. It is also
+the primary key of every show-level object `Repeatr` derives from `fls_data`
+(`othervariables`, `shows_data`, and others) - join on `gid` to attach any of
+those to `fls_data` or to each other.
+
+```{r}
+library(fugazi.db)
+library(dplyr)
+
+# every show, with its Repeatr-derived sound quality rating
+fls_data %>%
+  left_join(Repeatr::gid_sound_quality, by = "gid")
+```
+
+`fls_tags_raw` does **not** carry `gid` directly - its `album` field encodes
+a show's date and venue as free text (`"YYYYMMDD Venue, City, State,
+Country"`). `Repeatr::Repeatr_1()` is the authoritative parser for this
+field (matching it back to `gid` via the show data, not by splitting on
+commas, since a venue or city name can itself contain a comma); don't
+re-parse `album` by hand.
+
+### `country` + `city` + `venue` - venue coordinates
+
+`fls_venue_geocoding` is keyed by the combination of `country`, `city`, and
+`venue` (with `city` disambiguated as `"City (ST)"`/`"City (Country)"` for
+towns that share a name with another tour stop - Portland, Columbia,
+Croydon, Oxford, Newcastle). `fls_data`'s own `country`/`city`/`venue`
+columns use the *undisambiguated* city form; `Repeatr::Repeatr_1()` applies
+the same disambiguation rule before joining against `fls_venue_geocoding`.
+
+```{r}
+# venues with no confirmed coordinates yet
+fls_venue_geocoding %>% filter(is.na(x) | is.na(y))
+```
+
+### `song` - discography metadata
+
+`songvarslookup` and `song_tempo_bpm_data` are both keyed by `song` (the
+song title, as text - not a numeric id). `Repeatr` assigns a stable numeric
+`songid` once it classifies the full song set (see `Repeatr::songidlookup`);
+that id doesn't exist in `fugazi.db`, precisely so these two files can't
+silently drift out of sync with `Repeatr`'s classification logic by
+hardcoding an id that might not match.
+
+```{r}
+# every song's tempo alongside its discography metadata
+songvarslookup %>%
+  left_join(song_tempo_bpm_data, by = "song")
+```
+
+### `releaseid` - discography structure
+
+`releases` is keyed by `releaseid`, referenced by `songvarslookup$releaseid`.
+
+```{r}
+# every song, with its release's name and colour code
+songvarslookup %>%
+  left_join(releases, by = "releaseid") %>%
+  select(song, release, colour_code)
+```
+
+## Where the derived data lives
+
+`fugazi.db` intentionally stops at primary data. Song classification,
+choice-model ratings, tour/attendance summaries, and everything else
+`Repeatr` computes from these tables lives in `Repeatr` itself - see its
+`vignette("Data-Provenance")` for the full catalogue of derived objects, and
+`vignette("Rebuilding-the-Data")` for how `fugazi.db`'s own `data-raw/`
+sources get refreshed and turned into the objects documented here.
