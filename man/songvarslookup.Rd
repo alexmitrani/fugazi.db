@@ -7,9 +7,9 @@
 \format{
 dataframe with one row for each song in the Fugazi discography.
 \describe{
-\item{releaseid}{numeric id in ascending chronological order}
+\item{releaseid}{numeric id of the release the song appears on, references \code{\link{releases}}}
 \item{track_number}{The track number for the song on the release}
-\item{song}{The name of the song - the join key used to attach this data to \code{Repeatr}'s show data, not a hardcoded id column, so it can't drift out of sync with song identity assigned there}
+\item{song}{The name of the song - a text join key, not a hardcoded id column; see \code{\link{songidlookup}} for a stable numeric \code{songid}}
 \item{instrumental}{Indicates whether or not the piece is an instrumental}
 \item{vocals_picciotto}{indicates whether or not Guy Picciotto sang lead vocals on this track}
 \item{vocals_mackaye}{indicates whether or not Ian Mackaye sang lead vocals on this track}
@@ -29,7 +29,7 @@ attributing lead vocals are simplifications in some cases where lead
 vocals were shared.
 }
 \section{Provenance}{
- Raw-hand-curated. Edited by hand against Wikipedia.
+ Raw-hand-curated, edited by hand against Wikipedia; read as-is by \code{Repeatr::Repeatr_1()}. Exported by \code{Repeatr::export_fugazidb_data()}.
 }
 
 \examples{

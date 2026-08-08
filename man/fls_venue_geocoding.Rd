@@ -23,12 +23,10 @@ dataframe with one row for each known venue.
 fls_venue_geocoding
 }
 \description{
-Venue coordinates for the Fugazi Live Series, a periodically-refreshed
-local snapshot of a private Google Sheet used to look up and confirm
-venue locations on Google Maps.
+Venue coordinates for the Fugazi Live Series.
 }
 \section{Provenance}{
- Raw-hand-curated. Periodically re-synced from a private Google Sheet; also includes a small number of venues consolidated in from two now-retired sources (\code{fugazi-small.csv}'s coordinate fallback and \code{othervariables_patch.csv}'s per-show rescue rows) as part of a one-time cleanup - see \code{Repeatr}'s \code{vignette("Rebuilding-the-Data")}.
+ Raw-hand-curated. A direct, unmodified copy of Repeatr's own \code{inst/extdata/fls_venue_geocoding_v2.csv} - not necessarily sufficient on its own to reproduce every coordinate in \code{fls_shows}, since a handful of venues are resolved in \code{Repeatr::Repeatr_1()} via hardcoded per-venue corrections rather than this table. Exported by \code{Repeatr::export_fugazidb_data()}.
 }
 
 \examples{

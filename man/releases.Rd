@@ -7,12 +7,11 @@
 \format{
 dataframe with one row for each release.
 \describe{
-\item{releaseid}{numeric id in ascending chronological order}
+\item{releaseid}{numeric id in ascending chronological order, references \code{\link{songvarslookup}}}
 \item{release}{release name}
 \item{variable}{release name in snake_case, for use as a variable name}
 \item{releasedate}{release date}
 \item{release_date_source}{source of the release date}
-\item{colour_code}{hex colour code, hand-assigned for use in graphs}
 \item{rym_rating}{rateyourmusic.com rating, scaled to the interval between 0 and 1}
 }
 }
@@ -20,10 +19,10 @@ dataframe with one row for each release.
 releases
 }
 \description{
-Per-release metadata for the Fugazi discography.
+Metadata for the Fugazi discography.
 }
 \section{Provenance}{
- Raw-hand-curated. \code{colour_code} is a manual assignment; \code{rym_rating} is sourced from rateyourmusic.com.
+ Derived-cleaned in \code{Repeatr} (its \code{releasesdatalookup} object, minus the graph-only \code{colour_code} column and the four synthetic bucket rows). \code{rym_rating} is sourced from rateyourmusic.com. Exported by \code{Repeatr::export_fugazidb_data()}.
 }
 
 \examples{

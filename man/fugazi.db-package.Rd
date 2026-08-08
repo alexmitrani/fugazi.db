@@ -4,14 +4,11 @@
 \name{fugazi.db-package}
 \alias{fugazi.db}
 \alias{fugazi.db-package}
-\title{fugazi.db: Primary Data for the Fugazi Live Series}
+\title{fugazi.db: Tidy Data from the Fugazi Live Series}
 \description{
-A data-only package of primary source data on the Fugazi Live Series -
-show listings, venue coordinates, tag/duration data, and discography
-metadata. Contains no processing code; see the companion package
-\href{https://github.com/alexmitrani/Repeatr}{Repeatr} for the functions
-that clean, classify, and model this data. See
-\code{vignette("Data-Catalogue", package = "fugazi.db")} for a full
+tidy data derived from the Fugazi Live Series and related sources -
+show listings, venue coordinates, durations, and discographical information.
+See \code{vignette("Data-Catalogue", package = "fugazi.db")} for a full
 description of every table and the keys used to join them together.
 }
 \seealso{

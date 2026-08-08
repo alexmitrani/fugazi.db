@@ -5,7 +5,7 @@
 \alias{song_tempo_bpm_data}
 \title{Song tempo BPM data}
 \format{
-dataframe with one row for each song in the Fugazi discography.
+dataframe with one row for each song with a personally-measured tempo reading.
 \describe{
 \item{song}{The name of the song}
 \item{tempo_bpm}{The tempo of the song in beats per minute}
@@ -21,7 +21,7 @@ song_tempo_bpm_data
 Song tempo BPM data
 }
 \section{Provenance}{
- Raw-hand-curated. Manually compiled per-song tempo.
+ Raw-hand-curated, manually compiled per-song tempo; read as-is by \code{Repeatr::Repeatr_1()}. Exported by \code{Repeatr::export_fugazidb_data()}.
 }
 
 \examples{
