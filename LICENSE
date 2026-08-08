@@ -1,27 +1,16 @@
 Copyright and licensing status of fugazi.db
 =============================================
 
-This package has no general open-source license grant over its data
-content, pending resolution of the copyright question below.
-
 Source of the data
 -------------------
 
-The data in this package - show dates, venues, attendance, setlists, and
-any free-text notes (e.g. `fls_data$fls_notes`) - is sourced from the
-Fugazi Live Series website (https://www.dischord.com/fugazi_live_series),
-which is copyright Dischord Records.
+The data in this package - show dates, venues, attendance, and setlists -
+was originally sourced from the Fugazi Live Series website
+(https://www.dischord.com/fugazi_live_series), which is copyright Dischord
+Records.
 
-The package maintainer requested permission from Dischord Records to
-redistribute this data openly; as of this package's current version, that
-request is still pending a reply. Until that is resolved, this data is not
-released under an open-source or open-data license, and the copyright
-holder of the underlying source data is Dischord Records, not the package
-maintainer.
-
-Cleaning, correction (e.g. venue geocoding, spelling fixes), and
-re-organization of the raw data into the tables shipped here is original
-work by the package maintainer, Alex Mitrani.
+Cleaning, corrections, venue geo-coding and re-organization of the raw data
+into the tables included here is original work by the package maintainer, Alex Mitrani.
 
 Questions about reuse should be directed to the package maintainer (see
 DESCRIPTION) and, for the underlying source data itself, to Dischord
