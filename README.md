@@ -36,3 +36,13 @@ them together.
 `data-raw/` holds the plain, human-editable source files these objects are
 built from (not part of the installed package) - see Repeatr's
 `vignette("Rebuilding-the-Data")` for the refresh workflow.
+
+## Data source and copyright
+
+Show dates, venues, attendance, setlists, and any free-text show notes come
+from the [Fugazi Live Series](https://www.dischord.com/fugazi_live_series)
+website, copyright Dischord Records. Permission to redistribute this data
+openly has been requested and is pending a reply - see
+[`LICENSE`](LICENSE) for the current copyright status. Venue geocoding,
+corrections, and re-organization into the tables shipped here are original
+work by the package maintainer.

@@ -25,5 +25,10 @@ Useful links:
 \author{
 \strong{Maintainer}: Alex Mitrani \email{27974470+alexmitrani@users.noreply.github.com} (\href{https://orcid.org/0000-0003-1091-7413}{ORCID})
 
+Other contributors:
+\itemize{
+  \item Dischord Records (copyright holder of the underlying Fugazi Live Series show data - see LICENSE) [copyright holder]
+}
+
 }
 \keyword{internal}
