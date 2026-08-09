@@ -32,7 +32,7 @@ them together.
 | `fls_venue_geocoding` | Venue coordinates |
 | `fls_tags` | Per-track duration data, keyed by `gid`, parsed from personal MP3 tag exports |
 | `releases` | Per-release metadata (release date) |
-| `songs` | Per-song discography metadata (release, vocals, instrumental) |
+| `discography` | Per-song studio discography metadata (release, vocals, instrumental) |
 | `played_with` | One row per show and band Fugazi played with, keyed by `gid` |
 
 Each table is a fact table - corrected and reformatted, but not joined,

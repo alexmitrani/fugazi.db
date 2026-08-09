@@ -7,7 +7,7 @@
 \format{
 dataframe with one row for each release.
 \describe{
-\item{releaseid}{numeric id in ascending chronological order, references \code{\link{songs}}}
+\item{releaseid}{numeric id in ascending chronological order, references \code{\link{discography}}}
 \item{release}{release name}
 \item{releasedate}{release date}
 \item{release_date_source}{source of the release date}

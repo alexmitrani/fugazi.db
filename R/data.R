@@ -74,7 +74,7 @@
 #' \describe{
 #' \item{gid}{show id, references \code{\link{fls_shows}}}
 #' \item{track}{Track number within its album/show}
-#' \item{song}{Track/song name, as tagged (hand-corrected for known typos); references \code{\link{songs}}}
+#' \item{song}{Track/song name, as tagged (hand-corrected for known typos); references \code{\link{discography}}}
 #' \item{duration}{Track duration, an hms `Period` object}
 #' }
 #' @section Provenance: Derived-cleaned in `Repeatr` (its `fls_tags` object). `gid` is resolved there via `Repeatr::Repeatr_1()`'s authoritative parser for the raw `album` tag text - don't re-parse `album` by hand. Exported (minus `date` - join \code{\link{fls_shows}} on `gid` instead - and `seconds`, which duplicated `duration`; `track` converted from character to integer) by \code{Repeatr::export_fugazidb_data()}.
@@ -90,7 +90,7 @@
 #'
 #' @format dataframe with one row for each release.
 #' \describe{
-#' \item{releaseid}{numeric id in ascending chronological order, references \code{\link{songs}}}
+#' \item{releaseid}{numeric id in ascending chronological order, references \code{\link{discography}}}
 #' \item{release}{release name}
 #' \item{releasedate}{release date}
 #' \item{release_date_source}{source of the release date}
@@ -100,28 +100,28 @@
 #' releases
 "releases"
 
-#' Fugazi songs data
+#' Fugazi studio discography data
 #'
-#' One row per song in the Fugazi discography: discography metadata from
-#' Wikipedia. The variables attributing lead vocals are simplifications in
-#' some cases where lead vocals were shared.
+#' One row per song in the Fugazi studio discography, from Wikipedia. The
+#' variables attributing lead vocals are simplifications in some cases where
+#' lead vocals were shared.
 #'
 #' @source https://web.archive.org/web/20201112000517/http://en.wikipedia.org/wiki/Fugazi_discography
 #' @format dataframe with one row for each song in the Fugazi discography.
 #' \describe{
 #' \item{song}{The name of the song - the join key this table (and \code{\link{fls_tags}}) is keyed on}
 #' \item{releaseid}{numeric id of the release the song appears on, references \code{\link{releases}}}
-#' \item{track_number}{The track number for the song on the release}
+#' \item{release_track}{The song's track number on its studio release (distinct from \code{\link{fls_tags}}'s `track`, which numbers a specific live/tagged recording)}
 #' \item{instrumental}{Indicates whether or not the piece is an instrumental}
 #' \item{vocals_picciotto}{indicates whether or not Guy Picciotto sang lead vocals on this track}
 #' \item{vocals_mackaye}{indicates whether or not Ian Mackaye sang lead vocals on this track}
 #' \item{vocals_lally}{indicates whether or not Joe Lally sang lead vocals on this track}
-#' \item{duration_seconds}{The duration of the song in seconds}
+#' \item{release_duration}{The song's duration on its studio release, an hms `Period` object (same format as \code{\link{fls_tags}}'s `duration`)}
 #' }
-#' @section Provenance: Raw-hand-curated in `Repeatr` (its `songvarslookup` object, edited by hand against Wikipedia). Exported as-is by \code{Repeatr::export_fugazidb_data()}.
+#' @section Provenance: Raw-hand-curated in `Repeatr` (its `songvarslookup` object, edited by hand against Wikipedia). Exported (`track_number`/`duration_seconds` renamed to `release_track`/`release_duration`, the latter converted from seconds to a `Period`) by \code{Repeatr::export_fugazidb_data()}.
 #' @examples
-#' songs
-"songs"
+#' discography
+"discography"
 
 # Bands played with --------------------------------------------------------
 

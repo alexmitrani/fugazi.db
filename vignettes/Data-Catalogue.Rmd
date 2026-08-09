@@ -38,7 +38,7 @@ table is derived.
 | `fls_venue_geocoding` | venue | `country`+`city`+`venue` |
 | `fls_tags` | tagged MP3 track | `gid`; `song` |
 | `releases` | release (album/EP) | `releaseid` |
-| `songs` | song | `song` (title text); `releaseid` |
+| `discography` | song | `song` (title text); `releaseid` |
 | `played_with` | show + co-billed band | `gid` |
 
 ## Join keys
@@ -80,24 +80,24 @@ fls_venue_geocoding %>% filter(is.na(x) | is.na(y))
 
 ### `song` - discography metadata
 
-`songs` is keyed by `song` (the song title, as text), and carries
-discography metadata (release, vocals, instrumental, duration). `fls_tags`
-is also keyed by `song` text for each tagged track - join the two to attach
-discography metadata to a specific live rendition.
+`discography` is keyed by `song` (the song title, as text), and carries
+studio discography metadata (release, vocals, instrumental, duration).
+`fls_tags` is also keyed by `song` text for each tagged track - join the two
+to attach discography metadata to a specific live rendition.
 
 ```{r}
 # every tagged track, with its discography metadata
 fls_tags %>%
-  left_join(songs, by = "song")
+  left_join(discography, by = "song")
 ```
 
 ### `releaseid` - discography structure
 
-`releases` is keyed by `releaseid`, referenced by `songs$releaseid`.
+`releases` is keyed by `releaseid`, referenced by `discography$releaseid`.
 
 ```{r}
 # every song, with its release's name and date
-songs %>%
+discography %>%
   left_join(releases, by = "releaseid") %>%
   select(song, release, releasedate)
 ```

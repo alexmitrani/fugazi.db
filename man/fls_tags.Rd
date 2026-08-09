@@ -9,7 +9,7 @@ dataframe with one row for each track in the tagged collection.
 \describe{
 \item{gid}{show id, references \code{\link{fls_shows}}}
 \item{track}{Track number within its album/show}
-\item{song}{Track/song name, as tagged (hand-corrected for known typos); references \code{\link{songs}}}
+\item{song}{Track/song name, as tagged (hand-corrected for known typos); references \code{\link{discography}}}
 \item{duration}{Track duration, an hms \code{Period} object}
 }
 }
