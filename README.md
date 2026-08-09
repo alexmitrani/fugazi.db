@@ -32,13 +32,11 @@ them together.
 | `fls_venue_geocoding` | Venue coordinates |
 | `fls_tags` | Per-track duration data, keyed by `gid`, parsed from personal MP3 tag exports |
 | `releases` | Per-release metadata (release date) |
-| `songs` | Per-song metadata: stable `songid`, performance count, discography (release, vocals, instrumental) |
+| `songs` | Per-song discography metadata (release, vocals, instrumental) |
 | `played_with` | One row per show and band Fugazi played with, keyed by `gid` |
 
 Each table is a fact table - corrected and reformatted, but not joined,
-summarized, or modelled. `fls_shows` deliberately excludes any free-text
-show notes (see [Data source and copyright](#data-source-and-copyright)
-below).
+summarized, or modelled.
 
 See Repeatr's `vignette("Rebuilding-the-Data")` for how this package's data
 gets refreshed.
@@ -49,7 +47,6 @@ Show dates, venues, attendance, and setlists ultimately come from the
 [Fugazi Live Series](https://www.dischord.com/fugazi_live_series) website,
 copyright Dischord Records. Permission to redistribute this data openly has
 been requested and is pending a reply - see [`LICENSE`](LICENSE) for the
-current copyright status. Free-text show notes are deliberately excluded
-from this package. Venue geocoding, cleaning, correction, and
+current copyright status. Venue geocoding, cleaning, correction, and
 re-organization into the tables shipped here are original work by the
 package maintainer, done in the Repeatr package.

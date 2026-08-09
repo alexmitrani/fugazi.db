@@ -34,8 +34,7 @@ One row per show, as scraped from the Fugazi Live Series website (via
 \code{Repeatr::scrape_fls_shows()}) and cleaned/corrected by
 \code{Repeatr::Repeatr_1()} - country/city/venue name inconsistencies
 against the venue-geocoding data corrected by hand, sound quality joined
-in. Free-text show notes are deliberately excluded (see this package's
-\code{LICENSE}).
+in.
 }
 \section{Provenance}{
  Derived-cleaned in \code{Repeatr} (its \code{othervariables} object, joined with \code{gid_sound_quality}, minus \code{fls_notes}, \code{year}, \code{checked}, \code{x}, \code{y} - venue coordinates live in \code{\link{fls_venue_geocoding}} instead). Only covers shows with a resolvable \code{tour} and coordinates - not literally every show ever scraped, since \code{Repeatr::Repeatr_1()} filters those out upstream. Exported by \code{Repeatr::export_fugazidb_data()}.

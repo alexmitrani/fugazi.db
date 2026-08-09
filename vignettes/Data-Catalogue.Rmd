@@ -38,7 +38,7 @@ table is derived.
 | `fls_venue_geocoding` | venue | `country`+`city`+`venue` |
 | `fls_tags` | tagged MP3 track | `gid`; `song` |
 | `releases` | release (album/EP) | `releaseid` |
-| `songs` | song | `songid`; `song` (title text); `releaseid` |
+| `songs` | song | `song` (title text); `releaseid` |
 | `played_with` | show + co-billed band | `gid` |
 
 ## Join keys
@@ -78,13 +78,12 @@ fls_shows %>%
 fls_venue_geocoding %>% filter(is.na(x) | is.na(y))
 ```
 
-### `song` - song identity and discography metadata
+### `song` - discography metadata
 
-`songs` is keyed by `song` (the song title, as text), and carries a stable
-numeric `songid` alongside discography metadata (release, vocals,
-instrumental, duration). `fls_tags` is also keyed by `song` text for each
-tagged track - join the two to attach discography metadata to a specific
-live rendition.
+`songs` is keyed by `song` (the song title, as text), and carries
+discography metadata (release, vocals, instrumental, duration). `fls_tags`
+is also keyed by `song` text for each tagged track - join the two to attach
+discography metadata to a specific live rendition.
 
 ```{r}
 # every tagged track, with its discography metadata
@@ -102,28 +101,6 @@ songs %>%
   left_join(releases, by = "releaseid") %>%
   select(song, release, releasedate)
 ```
-
-## What's excluded, and why
-
-`fugazi.db` ships facts - corrected and reformatted, but not joined,
-summarized, or modelled. It deliberately excludes:
-
-- **Free-text show notes** (`fls_notes` in Repeatr's own raw data) - a
-  copyright precaution, since that text is Dischord Records' own writing
-  about each show, not a structured fact like a date or venue name. See this
-  package's `LICENSE`.
-- **Joined/summarized/modelled data** - tour-level and song-level summaries,
-  cumulative counts, transition matrices, sound-quality "stacks," and the
-  `mlogit` choice model and everything derived from it. All of that lives in
-  `Repeatr` itself - see its `vignette("Data-Provenance")` for the full
-  catalogue of derived objects.
-- **Song classification detail** - `Repeatr`'s song-title recoding and
-  `tracktype` rules involve judgment calls that can shift which songs exist
-  and how they're numbered. `songs` ships the resulting `songid` as pure
-  join-key infrastructure, but not the classification rules themselves.
-- **Song tempo data** - `Repeatr`'s `song_tempo_bpm_data` (personally-measured
-  BPM readings) is not exported here; it exists only in `Repeatr` itself, for
-  its Shiny app.
 
 See `Repeatr::export_fugazidb_data()` and its `vignette("Rebuilding-the-Data")`
 for how this package's data gets refreshed.

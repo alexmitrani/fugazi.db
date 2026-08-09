@@ -7,9 +7,7 @@
 \format{
 dataframe with one row for each song in the Fugazi discography.
 \describe{
-\item{songid}{numeric id for each song, based on the alphabetical order of the song names}
 \item{song}{The name of the song - the join key this table (and \code{\link{fls_tags}}) is keyed on}
-\item{count}{The number of times the song was performed according to the data}
 \item{releaseid}{numeric id of the release the song appears on, references \code{\link{releases}}}
 \item{track_number}{The track number for the song on the release}
 \item{instrumental}{Indicates whether or not the piece is an instrumental}
@@ -26,13 +24,12 @@ https://web.archive.org/web/20201112000517/http://en.wikipedia.org/wiki/Fugazi_d
 songs
 }
 \description{
-One row per song in the Fugazi discography: a stable numeric \code{songid} and
-performance count, combined with discography metadata from Wikipedia. The
-variables attributing lead vocals are simplifications in some cases where
-lead vocals were shared.
+One row per song in the Fugazi discography: discography metadata from
+Wikipedia. The variables attributing lead vocals are simplifications in
+some cases where lead vocals were shared.
 }
 \section{Provenance}{
- Derived-classified in \code{Repeatr} (its \code{songidlookup} object - the single source of truth for song identity, computed from the live classified song set, not hand-edited) combined with Raw-hand-curated discography metadata (its \code{songvarslookup} object, edited by hand against Wikipedia), joined by \code{song} title text. Exported by \code{Repeatr::export_fugazidb_data()}.
+ Raw-hand-curated in \code{Repeatr} (its \code{songvarslookup} object, edited by hand against Wikipedia). Exported as-is by \code{Repeatr::export_fugazidb_data()}.
 }
 
 \examples{

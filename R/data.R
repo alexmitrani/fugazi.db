@@ -17,8 +17,7 @@
 #' \code{Repeatr::scrape_fls_shows()}) and cleaned/corrected by
 #' \code{Repeatr::Repeatr_1()} - country/city/venue name inconsistencies
 #' against the venue-geocoding data corrected by hand, sound quality joined
-#' in. Free-text show notes are deliberately excluded (see this package's
-#' \code{LICENSE}).
+#' in.
 #'
 #' @source https://www.dischord.com/fugazi_live_series
 #' @format dataframe with one row for each show.
@@ -103,17 +102,14 @@
 
 #' Fugazi songs data
 #'
-#' One row per song in the Fugazi discography: a stable numeric `songid` and
-#' performance count, combined with discography metadata from Wikipedia. The
-#' variables attributing lead vocals are simplifications in some cases where
-#' lead vocals were shared.
+#' One row per song in the Fugazi discography: discography metadata from
+#' Wikipedia. The variables attributing lead vocals are simplifications in
+#' some cases where lead vocals were shared.
 #'
 #' @source https://web.archive.org/web/20201112000517/http://en.wikipedia.org/wiki/Fugazi_discography
 #' @format dataframe with one row for each song in the Fugazi discography.
 #' \describe{
-#' \item{songid}{numeric id for each song, based on the alphabetical order of the song names}
 #' \item{song}{The name of the song - the join key this table (and \code{\link{fls_tags}}) is keyed on}
-#' \item{count}{The number of times the song was performed according to the data}
 #' \item{releaseid}{numeric id of the release the song appears on, references \code{\link{releases}}}
 #' \item{track_number}{The track number for the song on the release}
 #' \item{instrumental}{Indicates whether or not the piece is an instrumental}
@@ -122,7 +118,7 @@
 #' \item{vocals_lally}{indicates whether or not Joe Lally sang lead vocals on this track}
 #' \item{duration_seconds}{The duration of the song in seconds}
 #' }
-#' @section Provenance: Derived-classified in `Repeatr` (its `songidlookup` object - the single source of truth for song identity, computed from the live classified song set, not hand-edited) combined with Raw-hand-curated discography metadata (its `songvarslookup` object, edited by hand against Wikipedia), joined by `song` title text. Exported by \code{Repeatr::export_fugazidb_data()}.
+#' @section Provenance: Raw-hand-curated in `Repeatr` (its `songvarslookup` object, edited by hand against Wikipedia). Exported as-is by \code{Repeatr::export_fugazidb_data()}.
 #' @examples
 #' songs
 "songs"
