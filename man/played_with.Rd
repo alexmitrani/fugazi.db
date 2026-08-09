@@ -10,7 +10,6 @@ In a few cases extra information was added from other sources.}
 dataframe with one row for each show and band Fugazi played with.
 \describe{
 \item{gid}{show id, references \code{\link{fls_shows}}}
-\item{fls_id}{Fugazi Live Series id}
 \item{played_with}{Band name}
 }
 }
@@ -26,7 +25,7 @@ One row per show and band Fugazi played with.
 In a few cases extra information was added from other sources.
 }
 \section{Provenance}{
- Derived-cleaned in \code{Repeatr} (its \code{played_with} object). Exported as-is by \code{Repeatr::export_fugazidb_data()}.
+ Derived-cleaned in \code{Repeatr} (its \code{played_with} object). Exported by \code{Repeatr::export_fugazidb_data()}.
 }
 
 \examples{

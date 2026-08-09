@@ -8,11 +8,9 @@
 dataframe with one row for each track in the tagged collection.
 \describe{
 \item{gid}{show id, references \code{\link{fls_shows}}}
-\item{date}{Show date}
 \item{track}{Track number within its album/show}
-\item{song}{Track/song name, as tagged (hand-corrected for known typos)}
+\item{song}{Track/song name, as tagged (hand-corrected for known typos); references \code{\link{songs}}}
 \item{duration}{Track duration, an hms \code{Period} object}
-\item{seconds}{Track duration in seconds}
 }
 }
 \source{
@@ -27,7 +25,7 @@ extracted from MP3 files with \href{https://kid3.kde.org/}{kid3}.
 Some corrections were made in a few cases.
 }
 \section{Provenance}{
- Derived-cleaned in \code{Repeatr} (its \code{fls_tags} object). \code{gid} is resolved there via \code{Repeatr::Repeatr_1()}'s authoritative parser for the raw \code{album} tag text - don't re-parse \code{album} by hand. Exported by \code{Repeatr::export_fugazidb_data()}.
+ Derived-cleaned in \code{Repeatr} (its \code{fls_tags} object). \code{gid} is resolved there via \code{Repeatr::Repeatr_1()}'s authoritative parser for the raw \code{album} tag text - don't re-parse \code{album} by hand. Exported (minus \code{date} - join \code{\link{fls_shows}} on \code{gid} instead - and \code{seconds}, which duplicated \code{duration}; \code{track} converted from character to integer) by \code{Repeatr::export_fugazidb_data()}.
 }
 
 \examples{

@@ -20,12 +20,7 @@ dataframe with one row for each show.
 \item{city}{City - plain city name (e.g. "Portland", "Columbia", "Croydon"); see \code{subdivision}/\code{country} to disambiguate cities that share a name with another Fugazi tour stop}
 \item{subdivision}{Subnational administrative unit (US state, DC, Canadian province, or Australian state/territory), where applicable (\code{NA} outside those three countries)}
 \item{country}{Country}
-\item{year}{Year}
-\item{checked}{\code{1} indicates the coordinates were checked/confirmed by the maintainer; \code{0} otherwise}
-\item{x}{Longitude}
-\item{y}{Latitude}
 \item{sound_quality}{Sound quality rating: Excellent, Very Good, Good, or Poor}
-\item{seconds}{Total recorded duration of the show, in seconds, where a recording is available}
 }
 }
 \source{
@@ -38,12 +33,12 @@ fls_shows
 One row per show, as scraped from the Fugazi Live Series website (via
 \code{Repeatr::scrape_fls_shows()}) and cleaned/corrected by
 \code{Repeatr::Repeatr_1()} - country/city/venue name inconsistencies
-against the venue-geocoding data corrected by hand, coordinates and sound
-quality joined in. Free-text show notes are deliberately excluded (see
-this package's \code{LICENSE}).
+against the venue-geocoding data corrected by hand, sound quality joined
+in. Free-text show notes are deliberately excluded (see this package's
+\code{LICENSE}).
 }
 \section{Provenance}{
- Derived-cleaned in \code{Repeatr} (its \code{othervariables} object, joined with \code{gid_sound_quality} and duration, minus \code{fls_notes}). Only covers shows with a resolvable \code{tour} and coordinates - not literally every show ever scraped, since \code{Repeatr::Repeatr_1()} filters those out upstream. Exported by \code{Repeatr::export_fugazidb_data()}.
+ Derived-cleaned in \code{Repeatr} (its \code{othervariables} object, joined with \code{gid_sound_quality}, minus \code{fls_notes}, \code{year}, \code{checked}, \code{x}, \code{y} - venue coordinates live in \code{\link{fls_venue_geocoding}} instead). Only covers shows with a resolvable \code{tour} and coordinates - not literally every show ever scraped, since \code{Repeatr::Repeatr_1()} filters those out upstream. Exported by \code{Repeatr::export_fugazidb_data()}.
 }
 
 \examples{

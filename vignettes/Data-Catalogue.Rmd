@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 
 ## Introduction
 
-`fugazi.db` ships nine lazy-loaded data objects - cleaned, corrected
+`fugazi.db` ships six lazy-loaded data objects - cleaned, corrected
 reference data behind the Fugazi Live Series. This vignette describes each
 table and, most importantly, **how they join together** - see each object's
 own help page (e.g. `?fls_shows`) for the full column-by-column description.
@@ -36,13 +36,10 @@ table is derived.
 |---|---|---|
 | `fls_shows` | show | `gid`; `country`+`city`+`venue` |
 | `fls_venue_geocoding` | venue | `country`+`city`+`venue` |
-| `fls_tags` | tagged MP3 track | `gid` |
+| `fls_tags` | tagged MP3 track | `gid`; `song` |
 | `releases` | release (album/EP) | `releaseid` |
-| `songvarslookup` | song | `song` (title text); `releaseid` |
-| `song_tempo_bpm_data` | song | `song` (title text) |
-| `songidlookup` | song | `songid`; `song` (title text) |
+| `songs` | song | `songid`; `song` (title text); `releaseid` |
 | `played_with` | show + co-billed band | `gid` |
-| `played_with_data` | show + co-billed band | `gid` |
 
 ## Join keys
 
@@ -50,8 +47,8 @@ table is derived.
 
 `gid` is a slug built from city, country, and date (e.g.
 `washington-dc-usa-90387`), and is the primary key of `fls_shows`. It is
-also the primary key of `fls_tags`, `played_with`, and `played_with_data` -
-join any of those to `fls_shows` (or to each other) on `gid`.
+also the primary key of `fls_tags` and `played_with` - join either of those
+to `fls_shows` (or to each other) on `gid`.
 
 ```{r}
 library(fugazi.db)
@@ -67,39 +64,41 @@ fls_shows %>%
 `fls_venue_geocoding` is keyed by the combination of `country`, `city`, and
 `venue` (with `city` disambiguated as `"City (ST)"`/`"City (Country)"` for
 towns that share a name with another tour stop - Portland, Columbia,
-Croydon, Oxford, Newcastle). `fls_shows` already carries its own resolved
-`x`/`y` coordinates directly (joined in by `Repeatr::Repeatr_1()`, including
-a handful of hardcoded per-venue corrections not present in
-`fls_venue_geocoding` itself) - `fls_venue_geocoding` is useful on its own
-for auditing or extending venue coverage, not required to get coordinates
-onto `fls_shows`.
+Croydon, Oxford, Newcastle) - join it onto `fls_shows` on those three
+columns to attach coordinates to a show. Note that `Repeatr::Repeatr_1()`
+resolves a handful of venues via hardcoded per-venue corrections not present
+in this table, so this join won't cover every show.
 
 ```{r}
+# every show, with its venue's coordinates
+fls_shows %>%
+  left_join(fls_venue_geocoding, by = c("country", "city", "venue"))
+
 # venues with no confirmed coordinates yet
 fls_venue_geocoding %>% filter(is.na(x) | is.na(y))
 ```
 
-### `song` - discography metadata
+### `song` - song identity and discography metadata
 
-`songvarslookup` and `song_tempo_bpm_data` are both keyed by `song` (the
-song title, as text). `songidlookup` additionally provides a stable numeric
-`songid` for every song `Repeatr` recognizes - join on `song` text to attach
-it to either of the other two.
+`songs` is keyed by `song` (the song title, as text), and carries a stable
+numeric `songid` alongside discography metadata (release, vocals,
+instrumental, duration). `fls_tags` is also keyed by `song` text for each
+tagged track - join the two to attach discography metadata to a specific
+live rendition.
 
 ```{r}
-# every song's tempo alongside its discography metadata and stable songid
-songvarslookup %>%
-  left_join(song_tempo_bpm_data, by = "song") %>%
-  left_join(songidlookup, by = "song")
+# every tagged track, with its discography metadata
+fls_tags %>%
+  left_join(songs, by = "song")
 ```
 
 ### `releaseid` - discography structure
 
-`releases` is keyed by `releaseid`, referenced by `songvarslookup$releaseid`.
+`releases` is keyed by `releaseid`, referenced by `songs$releaseid`.
 
 ```{r}
 # every song, with its release's name and date
-songvarslookup %>%
+songs %>%
   left_join(releases, by = "releaseid") %>%
   select(song, release, releasedate)
 ```
@@ -120,8 +119,11 @@ summarized, or modelled. It deliberately excludes:
   catalogue of derived objects.
 - **Song classification detail** - `Repeatr`'s song-title recoding and
   `tracktype` rules involve judgment calls that can shift which songs exist
-  and how they're numbered. `songidlookup` ships the resulting `songid` as
-  pure join-key infrastructure, but not the classification rules themselves.
+  and how they're numbered. `songs` ships the resulting `songid` as pure
+  join-key infrastructure, but not the classification rules themselves.
+- **Song tempo data** - `Repeatr`'s `song_tempo_bpm_data` (personally-measured
+  BPM readings) is not exported here; it exists only in `Repeatr` itself, for
+  its Shiny app.
 
 See `Repeatr::export_fugazidb_data()` and its `vignette("Rebuilding-the-Data")`
-for how this package's own `data-raw/` sources get refreshed.
+for how this package's data gets refreshed.

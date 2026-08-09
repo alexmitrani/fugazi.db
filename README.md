@@ -22,30 +22,26 @@ remotes::install_github("alexmitrani/fugazi.db")
 
 ## What's here
 
-Nine lazy-loaded data objects - see `vignette("Data-Catalogue", package = "fugazi.db")`
+Six lazy-loaded data objects - see `vignette("Data-Catalogue", package = "fugazi.db")`
 for a full description of each table, its columns, and the keys used to join
 them together.
 
 | Object | Description |
 |---|---|
-| `fls_shows` | One row per show: date, venue, attendance, coordinates, sound quality, duration |
+| `fls_shows` | One row per show: date, venue, attendance, sound quality |
 | `fls_venue_geocoding` | Venue coordinates |
 | `fls_tags` | Per-track duration data, keyed by `gid`, parsed from personal MP3 tag exports |
-| `releases` | Per-release metadata (release date, rating) |
-| `songvarslookup` | Per-song discography metadata (release, vocals, instrumental) |
-| `song_tempo_bpm_data` | Per-song tempo (BPM) |
-| `songidlookup` | Stable numeric `songid` for every song, keyed to `song` title |
+| `releases` | Per-release metadata (release date) |
+| `songs` | Per-song metadata: stable `songid`, performance count, discography (release, vocals, instrumental) |
 | `played_with` | One row per show and band Fugazi played with, keyed by `gid` |
-| `played_with_data` | `played_with`, combined with show data and coordinates |
 
 Each table is a fact table - corrected and reformatted, but not joined,
 summarized, or modelled. `fls_shows` deliberately excludes any free-text
 show notes (see [Data source and copyright](#data-source-and-copyright)
 below).
 
-`data-raw/` holds the plain, human-readable copy of each table (not part of
-the installed package) - see Repeatr's `vignette("Rebuilding-the-Data")` for
-the refresh workflow.
+See Repeatr's `vignette("Rebuilding-the-Data")` for how this package's data
+gets refreshed.
 
 ## Data source and copyright
 

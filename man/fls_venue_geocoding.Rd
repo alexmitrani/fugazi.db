@@ -10,13 +10,8 @@ dataframe with one row for each known venue.
 \item{country}{Country}
 \item{city}{City - disambiguated as "City (ST)"/"City (Country)" for cities that share a name with another tour stop (Portland, Columbia, Croydon, Oxford, Newcastle)}
 \item{venue}{Venue name}
-\item{googlemaps_hyperlink}{Link to the venue's location on Google Maps, where looked up this way}
-\item{find1}{Helper column used while looking up coordinates on Google Maps}
-\item{find2}{Helper column used while looking up coordinates on Google Maps}
-\item{find3}{Helper column used while looking up coordinates on Google Maps}
 \item{y}{Latitude}
 \item{x}{Longitude}
-\item{test_coordinates}{Helper column used while looking up coordinates on Google Maps}
 }
 }
 \usage{
@@ -26,7 +21,7 @@ fls_venue_geocoding
 Venue coordinates for the Fugazi Live Series.
 }
 \section{Provenance}{
- Raw-hand-curated. A direct, unmodified copy of Repeatr's own \code{inst/extdata/fls_venue_geocoding_v2.csv} - not necessarily sufficient on its own to reproduce every coordinate in \code{fls_shows}, since a handful of venues are resolved in \code{Repeatr::Repeatr_1()} via hardcoded per-venue corrections rather than this table. Exported by \code{Repeatr::export_fugazidb_data()}.
+ Raw-hand-curated, from Repeatr's own \code{inst/extdata/fls_venue_geocoding_v2.csv} (minus its Google-Maps-lookup helper columns: \code{googlemaps_hyperlink}, \code{find1}, \code{find2}, \code{find3}, \code{test_coordinates}) - not necessarily sufficient on its own to reproduce every coordinate in \code{fls_shows}, since a handful of venues are resolved in \code{Repeatr::Repeatr_1()} via hardcoded per-venue corrections rather than this table. Exported by \code{Repeatr::export_fugazidb_data()}.
 }
 
 \examples{
