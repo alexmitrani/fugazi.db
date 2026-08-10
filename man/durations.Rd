@@ -3,13 +3,13 @@
 \docType{data}
 \name{durations}
 \alias{durations}
-\title{Fugazi Live Series tag/duration data}
+\title{Fugazi Live Series duration data}
 \format{
-dataframe with one row for each track in the tagged collection.
+Data frame with 24513 observations and 4 variables.
 \describe{
-\item{gid}{show id, references \code{\link{shows}}}
-\item{track}{Track number within its album/show}
-\item{song}{Track/song name, as tagged (hand-corrected for known typos); references \code{\link{songs}}}
+\item{gid}{show id. References \code{\link{shows}}}
+\item{track}{Track number within each album}
+\item{song}{Track name. References \code{\link{songs}}}
 \item{duration}{Track duration, an hms \code{Period} object}
 }
 }
@@ -22,13 +22,18 @@ durations
 \description{
 Duration data for each Fugazi Live Series audio track,
 extracted from MP3 files with \href{https://kid3.kde.org/}{kid3}.
-Some corrections were made in a few cases.
 }
-\section{Provenance}{
- \code{gid} is derived by the package maintainer from each track's raw album tag text using a fixed parsing convention - don't attempt to re-derive it yourself; join \code{\link{shows}} on \code{gid} instead to attach a show's date and other details.
+\section{Notes}{
+ MP3 tags were edited to get a consistent format for each album, and some corrections were made.
+join \code{\link{shows}} on \code{gid} to attach a show's date and other details.
+join \code{\link{songs}} on \code{song} to attach details of each song.
 }
 
 \examples{
-durations
+# to calculate total duration summed across all tracks. Duration is converted to seconds, then summed, then converted back to period format which displays time in normal units.
+durations |>
+dplyr::group_by() |>
+dplyr::summarize(total_duration = lubridate::seconds_to_period(sum(lubridate::period_to_seconds(duration)))) |>
+dplyr::ungroup()
 }
 \keyword{datasets}

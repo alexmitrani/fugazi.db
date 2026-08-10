@@ -3,9 +3,9 @@
 \docType{data}
 \name{locations}
 \alias{locations}
-\title{Fugazi Live Series venue geocoding data}
+\title{Fugazi Live Series venue location data}
 \format{
-dataframe with one row for each known venue.
+Data frame with 754 observations and 5 variables.
 \describe{
 \item{country}{Country}
 \item{city}{City name (e.g. "Portland", "Columbia", "Croydon"), matching \code{\link{shows}}'s \code{city} column so the two tables join cleanly. Not unique by itself within a country: a handful of cities share a name with another tour stop (Portland, Columbia, Croydon, Newcastle, Oxford, Springfield) - join on \code{country}, \code{city}, and \code{venue} together to identify a specific location.}

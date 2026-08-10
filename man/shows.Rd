@@ -5,7 +5,7 @@
 \alias{shows}
 \title{Fugazi Live Series show data}
 \format{
-dataframe with 1049 rows and 15 columns:
+Data frame with 1049 observations and 15 variables.
 \describe{
 \item{gid}{show id - a slug built from city, country, and date (e.g. "washington-dc-usa-90387"); the primary key of this table and of every other table in this package that has a \code{gid} column}
 \item{flsid}{Fugazi Live Series id}

@@ -19,7 +19,7 @@
 #' Subdivision corrected, patched and extended to include Brazilian states.
 #'
 #' @source https://www.dischord.com/fugazi_live_series
-#' @format dataframe with 1049 rows and 15 columns:
+#' @format Data frame with 1049 observations and 15 variables.
 #' \describe{
 #' \item{gid}{show id - a slug built from city, country, and date (e.g. "washington-dc-usa-90387"); the primary key of this table and of every other table in this package that has a `gid` column}
 #' \item{flsid}{Fugazi Live Series id}
@@ -49,12 +49,12 @@
 
 # Venue coordinates -------------------------------------------------------
 
-#' Fugazi Live Series venue geocoding data
+#' Fugazi Live Series venue location data
 #'
 #' Venue coordinates for the Fugazi Live Series, hand-curated with reference to
 #' the available information for each show on the Fugazi Live Series website and elsewhere.
 #'
-#' @format dataframe with one row for each known venue.
+#' @format Data frame with 754 observations and 5 variables.
 #' \describe{
 #' \item{country}{Country}
 #' \item{city}{City name (e.g. "Portland", "Columbia", "Croydon"), matching \code{\link{shows}}'s `city` column so the two tables join cleanly. Not unique by itself within a country: a handful of cities share a name with another tour stop (Portland, Columbia, Croydon, Newcastle, Oxford, Springfield) - join on `country`, `city`, and `venue` together to identify a specific location.}
@@ -80,17 +80,22 @@
 #' extracted from MP3 files with \href{https://kid3.kde.org/}{kid3}.
 #'
 #' @source https://www.dischord.com/fugazi_live_series
-#' @format dataframe with one row for each track in the tagged collection.
+#' @format Data frame with 24513 observations and 4 variables.
 #' \describe{
-#' \item{gid}{show id, references \code{\link{shows}}}
-#' \item{track}{Track number within its album/show}
-#' \item{song}{Track/song name, as tagged (hand-corrected for known typos); references \code{\link{songs}}}
+#' \item{gid}{show id. References \code{\link{shows}}}
+#' \item{track}{Track number within each album}
+#' \item{song}{Track name. References \code{\link{songs}}}
 #' \item{duration}{Track duration, an hms `Period` object}
 #' }
-#' @section Notes: MP3 tags were edited to get a consistent format for each album, and Some corrections were made.
+#' @section Notes: MP3 tags were edited to get a consistent format for each album, and some corrections were made.
 #' join \code{\link{shows}} on `gid` to attach a show's date and other details.
+#' join \code{\link{songs}} on `song` to attach details of each song.
 #' @examples
-#' durations
+#' # to calculate total duration summed across all tracks. Duration is converted to seconds, then summed, then converted back to period format which displays time in normal units.
+#' durations |>
+#' dplyr::group_by() |>
+#' dplyr::summarize(total_duration = lubridate::seconds_to_period(sum(lubridate::period_to_seconds(duration)))) |>
+#' dplyr::ungroup()
 "durations"
 
 # Discography metadata --------------------------------------------------
