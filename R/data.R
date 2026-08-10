@@ -15,13 +15,11 @@
 
 #' Fugazi Live Series show data
 #'
-#' One row per show, scraped from the Fugazi Live Series website and
-#' cleaned by the package maintainer - country/city/venue names corrected
-#' against \code{\link{locations}}, sound quality joined in, and the raw
-#' door-price text split into a numeric price and its currency.
+#' One row per show. Door price text split into price and currency variables.
+#' Subdivision corrected, patched and extended to include Brazilian states.
 #'
 #' @source https://www.dischord.com/fugazi_live_series
-#' @format dataframe with one row for each show.
+#' @format dataframe with 1049 rows and 15 columns:
 #' \describe{
 #' \item{gid}{show id - a slug built from city, country, and date (e.g. "washington-dc-usa-90387"); the primary key of this table and of every other table in this package that has a `gid` column}
 #' \item{flsid}{Fugazi Live Series id}
@@ -39,38 +37,47 @@
 #' \item{country}{Country}
 #' \item{sound_quality}{Sound quality rating: Excellent, Very Good, Good, or Poor}
 #' }
-#' @section Provenance: Only covers shows with a resolvable `tour` and known coordinates - not literally every show ever documented on the Fugazi Live Series website. Venue coordinates are not included here; join \code{\link{locations}} on `country`, `city`, and `venue` to attach them.
-#' @examples
-#' shows
+#' @section Notes: Venue coordinates are not included here; join \code{\link{locations}} on `country`, `city`, and `venue` to attach them.
+#' @examplesIf requireNamespace("dplyr", quietly = TRUE)
+#' # to calculate number of shows by sound quality rating:
+#' shows |>
+#' dplyr::group_by(sound_quality) |>
+#' dplyr::summarize(number_shows = dplyr::n()) |>
+#' dplyr::ungroup() |>
+#' dplyr::arrange(-number_shows)
 "shows"
 
 # Venue coordinates -------------------------------------------------------
 
 #' Fugazi Live Series venue geocoding data
 #'
-#' Venue coordinates for the Fugazi Live Series, hand-curated and verified
-#' by the package maintainer.
+#' Venue coordinates for the Fugazi Live Series, hand-curated with reference to
+#' the available information for each show on the Fugazi Live Series website and elsewhere.
 #'
 #' @format dataframe with one row for each known venue.
 #' \describe{
 #' \item{country}{Country}
-#' \item{city}{City - plain city name (e.g. "Portland", "Columbia", "Croydon"), matching \code{\link{shows}}'s `city` column so the two tables join cleanly. Not unique by itself within a country: a handful of cities share a name with another tour stop (Portland, Columbia, Croydon, Newcastle, Oxford, Springfield) - join on `country`, `city`, and `venue` together to identify a specific location.}
+#' \item{city}{City name (e.g. "Portland", "Columbia", "Croydon"), matching \code{\link{shows}}'s `city` column so the two tables join cleanly. Not unique by itself within a country: a handful of cities share a name with another tour stop (Portland, Columbia, Croydon, Newcastle, Oxford, Springfield) - join on `country`, `city`, and `venue` together to identify a specific location.}
 #' \item{venue}{Venue name}
 #' \item{latitude}{Latitude, in decimal degrees, using the WGS 84 datum}
 #' \item{longitude}{Longitude, in decimal degrees, using the WGS 84 datum}
 #' }
-#' @section Provenance: Coordinates defined by package maintainer using information from the Fugazi Live Series and other sources.
-#' @examples
-#' locations
+#' @section Notes: Precision of the coordinates will vary depending on the available information in each case.
+#' @examplesIf requireNamespace("dplyr", quietly = TRUE)
+#' # to calculate number of venues per country
+#' locations |>
+#' dplyr::group_by(country) |>
+#' dplyr::summarize(number_venues = dplyr::n()) |>
+#' dplyr::ungroup() |>
+#' dplyr::arrange(-number_venues)
 "locations"
 
-# Tag/duration data ------------------------------------------------------
+# Duration data ------------------------------------------------------
 
-#' Fugazi Live Series tag/duration data
+#' Fugazi Live Series duration data
 #'
 #' Duration data for each Fugazi Live Series audio track,
 #' extracted from MP3 files with \href{https://kid3.kde.org/}{kid3}.
-#' Some corrections were made in a few cases.
 #'
 #' @source https://www.dischord.com/fugazi_live_series
 #' @format dataframe with one row for each track in the tagged collection.
@@ -80,7 +87,8 @@
 #' \item{song}{Track/song name, as tagged (hand-corrected for known typos); references \code{\link{songs}}}
 #' \item{duration}{Track duration, an hms `Period` object}
 #' }
-#' @section Provenance: `gid` is derived by the package maintainer from each track's raw album tag text using a fixed parsing convention - don't attempt to re-derive it yourself; join \code{\link{shows}} on `gid` instead to attach a show's date and other details.
+#' @section Notes: MP3 tags were edited to get a consistent format for each album, and Some corrections were made.
+#' join \code{\link{shows}} on `gid` to attach a show's date and other details.
 #' @examples
 #' durations
 "durations"

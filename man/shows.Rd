@@ -5,7 +5,7 @@
 \alias{shows}
 \title{Fugazi Live Series show data}
 \format{
-dataframe with one row for each show.
+dataframe with 1049 rows and 15 columns:
 \describe{
 \item{gid}{show id - a slug built from city, country, and date (e.g. "washington-dc-usa-90387"); the primary key of this table and of every other table in this package that has a \code{gid} column}
 \item{flsid}{Fugazi Live Series id}
@@ -31,16 +31,21 @@ https://www.dischord.com/fugazi_live_series
 shows
 }
 \description{
-One row per show, scraped from the Fugazi Live Series website and
-cleaned by the package maintainer - country/city/venue names corrected
-against \code{\link{locations}}, sound quality joined in, and the raw
-door-price text split into a numeric price and its currency.
+One row per show. Door price text split into price and currency variables.
+Subdivision corrected, patched and extended to include Brazilian states.
 }
-\section{Provenance}{
- Only covers shows with a resolvable \code{tour} and known coordinates - not literally every show ever documented on the Fugazi Live Series website. Venue coordinates are not included here; join \code{\link{locations}} on \code{country}, \code{city}, and \code{venue} to attach them.
+\section{Notes}{
+ Venue coordinates are not included here; join \code{\link{locations}} on \code{country}, \code{city}, and \code{venue} to attach them.
 }
 
 \examples{
-shows
+\dontshow{if (requireNamespace("dplyr", quietly = TRUE)) withAutoprint(\{ # examplesIf}
+# to calculate number of shows by sound quality rating:
+shows |>
+dplyr::group_by(sound_quality) |>
+dplyr::summarize(number_shows = dplyr::n()) |>
+dplyr::ungroup() |>
+dplyr::arrange(-number_shows)
+\dontshow{\}) # examplesIf}
 }
 \keyword{datasets}

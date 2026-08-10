@@ -8,7 +8,7 @@
 dataframe with one row for each known venue.
 \describe{
 \item{country}{Country}
-\item{city}{City - plain city name (e.g. "Portland", "Columbia", "Croydon"), matching \code{\link{shows}}'s \code{city} column so the two tables join cleanly. Not unique by itself within a country: a handful of cities share a name with another tour stop (Portland, Columbia, Croydon, Newcastle, Oxford, Springfield) - join on \code{country}, \code{city}, and \code{venue} together to identify a specific location.}
+\item{city}{City name (e.g. "Portland", "Columbia", "Croydon"), matching \code{\link{shows}}'s \code{city} column so the two tables join cleanly. Not unique by itself within a country: a handful of cities share a name with another tour stop (Portland, Columbia, Croydon, Newcastle, Oxford, Springfield) - join on \code{country}, \code{city}, and \code{venue} together to identify a specific location.}
 \item{venue}{Venue name}
 \item{latitude}{Latitude, in decimal degrees, using the WGS 84 datum}
 \item{longitude}{Longitude, in decimal degrees, using the WGS 84 datum}
@@ -18,14 +18,21 @@ dataframe with one row for each known venue.
 locations
 }
 \description{
-Venue coordinates for the Fugazi Live Series, hand-curated and verified
-by the package maintainer.
+Venue coordinates for the Fugazi Live Series, hand-curated with reference to
+the available information for each show on the Fugazi Live Series website and elsewhere.
 }
-\section{Provenance}{
- Coordinates defined by package maintainer using information from the Fugazi Live Series and other sources.
+\section{Notes}{
+ Precision of the coordinates will vary depending on the available information in each case.
 }
 
 \examples{
-locations
+\dontshow{if (requireNamespace("dplyr", quietly = TRUE)) withAutoprint(\{ # examplesIf}
+# to calculate number of venues per country
+locations |>
+dplyr::group_by(country) |>
+dplyr::summarize(number_venues = dplyr::n()) |>
+dplyr::ungroup() |>
+dplyr::arrange(-number_venues)
+\dontshow{\}) # examplesIf}
 }
 \keyword{datasets}
