@@ -1,8 +1,10 @@
 #' fugazi.db: Tidy Data from the Fugazi Live Series
 #'
-#' tidy data derived from the Fugazi Live Series and related sources -
-#' show listings, venue coordinates, durations, and discographical information.
-#' See \code{vignette("Data-Catalogue", package = "fugazi.db")} for a full
+#' Tidy, corrected reference data documenting the live performance history
+#' of the band Fugazi - show listings, venue coordinates, durations, and
+#' discography metadata - sourced primarily from the Fugazi Live Series
+#' website maintained by Dischord Records. See
+#' \code{vignette("Data-Catalogue", package = "fugazi.db")} for a full
 #' description of every table and the keys used to join them together.
 #'
 #' @import lubridate
@@ -13,11 +15,10 @@
 
 #' Fugazi Live Series show data
 #'
-#' One row per show, as scraped from the Fugazi Live Series website (via
-#' \code{Repeatr::scrape_fls_shows()}) and cleaned/corrected by
-#' \code{Repeatr::Repeatr_1()} - country/city/venue name inconsistencies
-#' against the venue-geocoding data corrected by hand, sound quality joined
-#' in.
+#' One row per show, scraped from the Fugazi Live Series website and
+#' cleaned by the package maintainer - country/city/venue names corrected
+#' against \code{\link{locations}}, sound quality joined in, and the raw
+#' door-price text split into a numeric price and its currency.
 #'
 #' @source https://www.dischord.com/fugazi_live_series
 #' @format dataframe with one row for each show.
@@ -38,7 +39,7 @@
 #' \item{country}{Country}
 #' \item{sound_quality}{Sound quality rating: Excellent, Very Good, Good, or Poor}
 #' }
-#' @section Provenance: Derived-cleaned in `Repeatr` (its `othervariables` object, joined with `gid_sound_quality`, minus `fls_notes`, `year`, `checked`, `x`, `y` - venue coordinates live in \code{\link{locations}} instead; raw `doorprice` text split into `price`/`currency`). Only covers shows with a resolvable `tour` and coordinates - not literally every show ever scraped, since `Repeatr::Repeatr_1()` filters those out upstream. Exported by \code{Repeatr::export_fugazidb_data()}.
+#' @section Provenance: Only covers shows with a resolvable `tour` and known coordinates - not literally every show ever documented on the Fugazi Live Series website. Venue coordinates are not included here; join \code{\link{locations}} on `country`, `city`, and `venue` to attach them.
 #' @examples
 #' shows
 "shows"
@@ -47,17 +48,18 @@
 
 #' Fugazi Live Series venue geocoding data
 #'
-#' Venue coordinates for the Fugazi Live Series.
+#' Venue coordinates for the Fugazi Live Series, hand-curated and verified
+#' by the package maintainer.
 #'
 #' @format dataframe with one row for each known venue.
 #' \describe{
 #' \item{country}{Country}
 #' \item{city}{City - disambiguated as "City (ST)"/"City (Country)" for cities that share a name with another tour stop (Portland, Columbia, Croydon, Oxford, Newcastle)}
 #' \item{venue}{Venue name}
-#' \item{latitude}{Latitude, in decimal degrees - the same coordinate format Google Maps displays, though that isn't its formal name}
-#' \item{longitude}{Longitude, in decimal degrees - the same coordinate format Google Maps displays, though that isn't its formal name}
+#' \item{latitude}{Latitude, in decimal degrees, using the WGS 84 datum}
+#' \item{longitude}{Longitude, in decimal degrees, using the WGS 84 datum}
 #' }
-#' @section Provenance: Raw-hand-curated, from Repeatr's own `inst/extdata/fls_venue_geocoding_v2.csv` (minus its Google-Maps-lookup helper columns: `googlemaps_hyperlink`, `find1`, `find2`, `find3`, `test_coordinates`) - not necessarily sufficient on its own to reproduce every coordinate in `shows`, since a handful of venues are resolved in `Repeatr::Repeatr_1()` via hardcoded per-venue corrections rather than this table. Exported by \code{Repeatr::export_fugazidb_data()}.
+#' @section Provenance: Not necessarily sufficient on its own to reproduce every coordinate in \code{\link{shows}}, since a handful of venues are resolved via additional maintainer corrections rather than this table.
 #' @examples
 #' locations
 "locations"
@@ -78,7 +80,7 @@
 #' \item{song}{Track/song name, as tagged (hand-corrected for known typos); references \code{\link{songs}}}
 #' \item{duration}{Track duration, an hms `Period` object}
 #' }
-#' @section Provenance: Derived-cleaned in `Repeatr` (its `fls_tags` object). `gid` is resolved there via `Repeatr::Repeatr_1()`'s authoritative parser for the raw `album` tag text - don't re-parse `album` by hand. Exported (minus `date` - join \code{\link{shows}} on `gid` instead - and `seconds`, which duplicated `duration`; `track` converted from character to integer) by \code{Repeatr::export_fugazidb_data()}.
+#' @section Provenance: `gid` is derived by the package maintainer from each track's raw album tag text using a fixed parsing convention - don't attempt to re-derive it yourself; join \code{\link{shows}} on `gid` instead to attach a show's date and other details.
 #' @examples
 #' durations
 "durations"
@@ -96,7 +98,6 @@
 #' \item{releasedate}{release date}
 #' \item{release_date_source}{source of the release date}
 #' }
-#' @section Provenance: Derived-cleaned in `Repeatr` (its `releasesdatalookup` object, minus the graph-only `colour_code` column, the snake_case `variable` column, the rateyourmusic.com-sourced `rym_rating` column, and the four synthetic bucket rows). Exported by \code{Repeatr::export_fugazidb_data()}.
 #' @examples
 #' discography
 "discography"
@@ -119,7 +120,6 @@
 #' \item{vocals_lally}{indicates whether or not Joe Lally sang lead vocals on this track}
 #' \item{release_duration}{The song's duration on its studio release, an hms `Period` object (same format as \code{\link{durations}}'s `duration`)}
 #' }
-#' @section Provenance: Raw-hand-curated in `Repeatr` (its `songvarslookup` object, edited by hand against Wikipedia). Exported (`track_number`/`duration_seconds` renamed to `release_track`/`release_duration`, the latter converted from seconds to a `Period`) by \code{Repeatr::export_fugazidb_data()}.
 #' @examples
 #' songs
 "songs"
@@ -127,8 +127,9 @@
 # Bands played with --------------------------------------------------------
 
 #' Fugazi Live Series data on bands that Fugazi played with
-#' One row per show and band Fugazi played with.
-#' In a few cases extra information was added from other sources.
+#'
+#' One row per show and band Fugazi played with. In a few cases extra
+#' information was added from other sources.
 #'
 #' @source https://www.dischord.com/fugazi_live_series
 #' @format dataframe with one row for each show and band Fugazi played with.
@@ -136,7 +137,6 @@
 #' \item{gid}{show id, references \code{\link{shows}}}
 #' \item{band}{Band name}
 #' }
-#' @section Provenance: Derived-cleaned in `Repeatr` (its `played_with` object). Exported (trimmed to `gid`/`played_with`, `played_with` renamed `band`) by \code{Repeatr::export_fugazidb_data()}.
 #' @examples
 #' bands
 "bands"

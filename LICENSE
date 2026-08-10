@@ -1,5 +1,5 @@
-Copyright and licensing status of fugazi.db
-=============================================
+Copyright (c) 2026 Alex Mitrani (package code, documentation, and curation
+work); Dischord Records (underlying Fugazi Live Series show data)
 
 Source of the data
 -------------------
@@ -9,8 +9,18 @@ was originally sourced from the Fugazi Live Series website
 (https://www.dischord.com/fugazi_live_series), which is copyright Dischord
 Records.
 
-Cleaning, corrections, venue geo-coding and re-organization of the raw data
-into the tables included here is original work by the package maintainer, Alex Mitrani.
+Cleaning, corrections, venue geocoding, and re-organization of the raw data
+into the tables included here are original work by the package maintainer,
+Alex Mitrani.
+
+License terms
+--------------
+
+Permission to redistribute Dischord Records' underlying show data openly
+has been requested and is pending a reply. Until that permission is
+confirmed, this package's copy of that data is provided for personal,
+non-commercial, and research use only; it is not licensed for
+redistribution.
 
 Questions about reuse should be directed to the package maintainer (see
 DESCRIPTION) and, for the underlying source data itself, to Dischord

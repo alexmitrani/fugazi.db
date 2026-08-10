@@ -10,18 +10,19 @@ dataframe with one row for each known venue.
 \item{country}{Country}
 \item{city}{City - disambiguated as "City (ST)"/"City (Country)" for cities that share a name with another tour stop (Portland, Columbia, Croydon, Oxford, Newcastle)}
 \item{venue}{Venue name}
-\item{latitude}{Latitude, in decimal degrees - the same coordinate format Google Maps displays, though that isn't its formal name}
-\item{longitude}{Longitude, in decimal degrees - the same coordinate format Google Maps displays, though that isn't its formal name}
+\item{latitude}{Latitude, in decimal degrees, using the WGS 84 datum}
+\item{longitude}{Longitude, in decimal degrees, using the WGS 84 datum}
 }
 }
 \usage{
 locations
 }
 \description{
-Venue coordinates for the Fugazi Live Series.
+Venue coordinates for the Fugazi Live Series, hand-curated and verified
+by the package maintainer.
 }
 \section{Provenance}{
- Raw-hand-curated, from Repeatr's own \code{inst/extdata/fls_venue_geocoding_v2.csv} (minus its Google-Maps-lookup helper columns: \code{googlemaps_hyperlink}, \code{find1}, \code{find2}, \code{find3}, \code{test_coordinates}) - not necessarily sufficient on its own to reproduce every coordinate in \code{shows}, since a handful of venues are resolved in \code{Repeatr::Repeatr_1()} via hardcoded per-venue corrections rather than this table. Exported by \code{Repeatr::export_fugazidb_data()}.
+ Not necessarily sufficient on its own to reproduce every coordinate in \code{\link{shows}}, since a handful of venues are resolved via additional maintainer corrections rather than this table.
 }
 
 \examples{

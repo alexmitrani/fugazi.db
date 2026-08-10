@@ -28,10 +28,6 @@ One row per song in the Fugazi studio discography, from Wikipedia. The
 variables attributing lead vocals are simplifications in some cases where
 lead vocals were shared.
 }
-\section{Provenance}{
- Raw-hand-curated in \code{Repeatr} (its \code{songvarslookup} object, edited by hand against Wikipedia). Exported (\code{track_number}/\code{duration_seconds} renamed to \code{release_track}/\code{release_duration}, the latter converted from seconds to a \code{Period}) by \code{Repeatr::export_fugazidb_data()}.
-}
-
 \examples{
 songs
 }

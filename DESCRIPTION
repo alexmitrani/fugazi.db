@@ -1,15 +1,18 @@
 Package: fugazi.db
 Title: Tidy Data from the Fugazi Live Series
-Version: 0.1.5
+Version: 0.1.6
 Authors@R: c(
     person("Alex", "Mitrani", , "27974470+alexmitrani@users.noreply.github.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0003-1091-7413")),
     person("Dischord Records", role = "cph",
            comment = "copyright holder of the underlying Fugazi Live Series show data - see LICENSE"))
-Description: 'fugazi.db' is a package of tidy data derived from the Fugazi Live Series and related sources - 
-    show listings, venue coordinates, durations, and discographical information.
-    - originally sourced from <https://www.dischord.com/fugazi_live_series>
-    and other sources. See LICENSE for the copyright status of the underlying data.
+Description: Tidy, corrected reference data documenting the live
+    performance history of the band Fugazi: show listings, venue
+    coordinates, track durations, and discography metadata. The data is
+    sourced primarily from the Fugazi Live Series website maintained by
+    Dischord Records (<https://www.dischord.com/fugazi_live_series>), with
+    additional discography and duration data from other sources. See the
+    LICENSE file for the copyright status of the underlying show data.
 License: file LICENSE
 URL: https://github.com/alexmitrani/fugazi.db
 BugReports: https://github.com/alexmitrani/fugazi.db/issues

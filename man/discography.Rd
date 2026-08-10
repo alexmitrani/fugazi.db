@@ -19,10 +19,6 @@ discography
 \description{
 Metadata for the Fugazi discography.
 }
-\section{Provenance}{
- Derived-cleaned in \code{Repeatr} (its \code{releasesdatalookup} object, minus the graph-only \code{colour_code} column, the snake_case \code{variable} column, the rateyourmusic.com-sourced \code{rym_rating} column, and the four synthetic bucket rows). Exported by \code{Repeatr::export_fugazidb_data()}.
-}
-
 \examples{
 discography
 }

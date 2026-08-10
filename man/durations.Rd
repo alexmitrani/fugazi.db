@@ -25,7 +25,7 @@ extracted from MP3 files with \href{https://kid3.kde.org/}{kid3}.
 Some corrections were made in a few cases.
 }
 \section{Provenance}{
- Derived-cleaned in \code{Repeatr} (its \code{fls_tags} object). \code{gid} is resolved there via \code{Repeatr::Repeatr_1()}'s authoritative parser for the raw \code{album} tag text - don't re-parse \code{album} by hand. Exported (minus \code{date} - join \code{\link{shows}} on \code{gid} instead - and \code{seconds}, which duplicated \code{duration}; \code{track} converted from character to integer) by \code{Repeatr::export_fugazidb_data()}.
+ \code{gid} is derived by the package maintainer from each track's raw album tag text using a fixed parsing convention - don't attempt to re-derive it yourself; join \code{\link{shows}} on \code{gid} instead to attach a show's date and other details.
 }
 
 \examples{

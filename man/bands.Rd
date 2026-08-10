@@ -3,9 +3,7 @@
 \docType{data}
 \name{bands}
 \alias{bands}
-\title{Fugazi Live Series data on bands that Fugazi played with
-One row per show and band Fugazi played with.
-In a few cases extra information was added from other sources.}
+\title{Fugazi Live Series data on bands that Fugazi played with}
 \format{
 dataframe with one row for each show and band Fugazi played with.
 \describe{
@@ -20,14 +18,9 @@ https://www.dischord.com/fugazi_live_series
 bands
 }
 \description{
-Fugazi Live Series data on bands that Fugazi played with
-One row per show and band Fugazi played with.
-In a few cases extra information was added from other sources.
+One row per show and band Fugazi played with. In a few cases extra
+information was added from other sources.
 }
-\section{Provenance}{
- Derived-cleaned in \code{Repeatr} (its \code{played_with} object). Exported (trimmed to \code{gid}/\code{played_with}, \code{played_with} renamed \code{band}) by \code{Repeatr::export_fugazidb_data()}.
-}
-
 \examples{
 bands
 }

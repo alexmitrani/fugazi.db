@@ -31,14 +31,13 @@ https://www.dischord.com/fugazi_live_series
 shows
 }
 \description{
-One row per show, as scraped from the Fugazi Live Series website (via
-\code{Repeatr::scrape_fls_shows()}) and cleaned/corrected by
-\code{Repeatr::Repeatr_1()} - country/city/venue name inconsistencies
-against the venue-geocoding data corrected by hand, sound quality joined
-in.
+One row per show, scraped from the Fugazi Live Series website and
+cleaned by the package maintainer - country/city/venue names corrected
+against \code{\link{locations}}, sound quality joined in, and the raw
+door-price text split into a numeric price and its currency.
 }
 \section{Provenance}{
- Derived-cleaned in \code{Repeatr} (its \code{othervariables} object, joined with \code{gid_sound_quality}, minus \code{fls_notes}, \code{year}, \code{checked}, \code{x}, \code{y} - venue coordinates live in \code{\link{locations}} instead; raw \code{doorprice} text split into \code{price}/\code{currency}). Only covers shows with a resolvable \code{tour} and coordinates - not literally every show ever scraped, since \code{Repeatr::Repeatr_1()} filters those out upstream. Exported by \code{Repeatr::export_fugazidb_data()}.
+ Only covers shows with a resolvable \code{tour} and known coordinates - not literally every show ever documented on the Fugazi Live Series website. Venue coordinates are not included here; join \code{\link{locations}} on \code{country}, \code{city}, and \code{venue} to attach them.
 }
 
 \examples{
