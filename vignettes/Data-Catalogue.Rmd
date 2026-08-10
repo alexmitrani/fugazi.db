@@ -61,13 +61,15 @@ shows %>%
 ### `country` + `city` + `venue` - venue coordinates
 
 `locations` is keyed by the combination of `country`, `city`, and
-`venue` (with `city` disambiguated as `"City (ST)"`/`"City (Country)"` for
-towns that share a name with another tour stop - Portland, Columbia,
-Croydon, Oxford, Newcastle) - join it onto `shows` on those three
-columns to attach coordinates to a show. Coordinates are latitude/longitude
-in decimal degrees, using the WGS 84 datum. A handful of venues are
-resolved via additional maintainer corrections not present in this table,
-so this join won't cover every show.
+`venue` - join it onto `shows` on those three columns to attach
+coordinates to a show. `city` is the plain city name, the same as in
+`shows`; a handful of towns share a name with another tour stop
+(Portland, Columbia, Croydon, Newcastle, Oxford, Springfield), so
+`country` and `venue` are both needed alongside `city` to pin down a
+single row. Coordinates are latitude/longitude in decimal degrees, using
+the WGS 84 datum. A handful of venues are resolved via additional
+maintainer corrections not present in this table, so this join won't
+cover every show.
 
 ```{r}
 # every show, with its venue's coordinates

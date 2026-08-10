@@ -14,7 +14,7 @@ dataframe with one row for each track in the tagged collection.
 }
 }
 \source{
-Fugazi Live Series.
+https://www.dischord.com/fugazi_live_series
 }
 \usage{
 durations
