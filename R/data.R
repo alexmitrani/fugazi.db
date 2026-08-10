@@ -35,7 +35,7 @@
 #' \item{original_source}{Original source}
 #' \item{tour}{The touring period the show belongs to, scraped from the FLS listing pages' own tour headings}
 #' \item{city}{City - plain city name (e.g. "Portland", "Columbia", "Croydon"); see `subdivision`/`country` to disambiguate cities that share a name with another Fugazi tour stop}
-#' \item{subdivision}{Subnational administrative unit (US state, DC, Canadian province, or Australian state/territory), where applicable (`NA` outside those three countries)}
+#' \item{subdivision}{Subnational administrative unit (US state, DC, Canadian province, Australian state/territory, or Brazilian state), where applicable (`NA` elsewhere)}
 #' \item{country}{Country}
 #' \item{sound_quality}{Sound quality rating: Excellent, Very Good, Good, or Poor}
 #' }
@@ -96,8 +96,21 @@
 #' \item{releaseid}{numeric id in ascending chronological order, references \code{\link{songs}}}
 #' \item{release}{release name}
 #' \item{releasedate}{release date}
-#' \item{release_date_source}{source of the release date}
 #' }
+#' @section Release date sources:
+#' | Release | Date source |
+#' |---|---|
+#' | fugazi | <https://rateyourmusic.com/release/ep/fugazi/fugazi/> |
+#' | margin walker | <https://www.dischord.com/release/035/margin-walker> |
+#' | 3 songs | <https://musicbrainz.org/release-group/43766318-cb47-4398-a877-0bfcbb09ad5a> |
+#' | repeater | <https://fugazi.bandcamp.com/album/repeater-3-songs> |
+#' | steady diet of nothing | <https://fugazi.bandcamp.com/album/steady-diet-of-nothing> |
+#' | in on the killtaker | <https://www.officialcharts.com/artist/33439/fugazi/> |
+#' | red medicine | <https://www.officialcharts.com/artist/33439/fugazi/> |
+#' | end hits | <https://www.officialcharts.com/artist/33439/fugazi/> |
+#' | the argument | <https://musicbrainz.org/release-group/7b1cb5fb-7ba5-3472-a687-1cb8f2d896e7> |
+#' | furniture | <https://musicbrainz.org/release-group/4042fe4e-0444-338b-9f2a-ac80faabcb1f> |
+#' | first demo | <https://musicbrainz.org/release-group/753fb03e-65f5-4805-afe9-373ed573cf87> |
 #' @examples
 #' discography
 "discography"

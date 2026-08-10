@@ -10,7 +10,6 @@ dataframe with one row for each release.
 \item{releaseid}{numeric id in ascending chronological order, references \code{\link{songs}}}
 \item{release}{release name}
 \item{releasedate}{release date}
-\item{release_date_source}{source of the release date}
 }
 }
 \usage{
@@ -19,6 +18,23 @@ discography
 \description{
 Metadata for the Fugazi discography.
 }
+\section{Release date sources}{
+\tabular{ll}{
+   Release \tab Date source \cr
+   fugazi \tab \url{https://rateyourmusic.com/release/ep/fugazi/fugazi/} \cr
+   margin walker \tab \url{https://www.dischord.com/release/035/margin-walker} \cr
+   3 songs \tab \url{https://musicbrainz.org/release-group/43766318-cb47-4398-a877-0bfcbb09ad5a} \cr
+   repeater \tab \url{https://fugazi.bandcamp.com/album/repeater-3-songs} \cr
+   steady diet of nothing \tab \url{https://fugazi.bandcamp.com/album/steady-diet-of-nothing} \cr
+   in on the killtaker \tab \url{https://www.officialcharts.com/artist/33439/fugazi/} \cr
+   red medicine \tab \url{https://www.officialcharts.com/artist/33439/fugazi/} \cr
+   end hits \tab \url{https://www.officialcharts.com/artist/33439/fugazi/} \cr
+   the argument \tab \url{https://musicbrainz.org/release-group/7b1cb5fb-7ba5-3472-a687-1cb8f2d896e7} \cr
+   furniture \tab \url{https://musicbrainz.org/release-group/4042fe4e-0444-338b-9f2a-ac80faabcb1f} \cr
+   first demo \tab \url{https://musicbrainz.org/release-group/753fb03e-65f5-4805-afe9-373ed573cf87} \cr
+}
+}
+
 \examples{
 discography
 }

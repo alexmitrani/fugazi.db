@@ -19,7 +19,7 @@ dataframe with one row for each show.
 \item{original_source}{Original source}
 \item{tour}{The touring period the show belongs to, scraped from the FLS listing pages' own tour headings}
 \item{city}{City - plain city name (e.g. "Portland", "Columbia", "Croydon"); see \code{subdivision}/\code{country} to disambiguate cities that share a name with another Fugazi tour stop}
-\item{subdivision}{Subnational administrative unit (US state, DC, Canadian province, or Australian state/territory), where applicable (\code{NA} outside those three countries)}
+\item{subdivision}{Subnational administrative unit (US state, DC, Canadian province, Australian state/territory, or Brazilian state), where applicable (\code{NA} elsewhere)}
 \item{country}{Country}
 \item{sound_quality}{Sound quality rating: Excellent, Very Good, Good, or Poor}
 }
