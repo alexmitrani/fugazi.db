@@ -3,33 +3,24 @@
 \docType{data}
 \name{discography}
 \alias{discography}
-\title{Fugazi studio discography data}
+\title{Fugazi releases data}
 \format{
-dataframe with one row for each song in the Fugazi discography.
+dataframe with one row for each release.
 \describe{
-\item{song}{The name of the song - the join key this table (and \code{\link{fls_tags}}) is keyed on}
-\item{releaseid}{numeric id of the release the song appears on, references \code{\link{releases}}}
-\item{release_track}{The song's track number on its studio release (distinct from \code{\link{fls_tags}}'s \code{track}, which numbers a specific live/tagged recording)}
-\item{instrumental}{Indicates whether or not the piece is an instrumental}
-\item{vocals_picciotto}{indicates whether or not Guy Picciotto sang lead vocals on this track}
-\item{vocals_mackaye}{indicates whether or not Ian Mackaye sang lead vocals on this track}
-\item{vocals_lally}{indicates whether or not Joe Lally sang lead vocals on this track}
-\item{release_duration}{The song's duration on its studio release, an hms \code{Period} object (same format as \code{\link{fls_tags}}'s \code{duration})}
+\item{releaseid}{numeric id in ascending chronological order, references \code{\link{songs}}}
+\item{release}{release name}
+\item{releasedate}{release date}
+\item{release_date_source}{source of the release date}
 }
-}
-\source{
-https://web.archive.org/web/20201112000517/http://en.wikipedia.org/wiki/Fugazi_discography
 }
 \usage{
 discography
 }
 \description{
-One row per song in the Fugazi studio discography, from Wikipedia. The
-variables attributing lead vocals are simplifications in some cases where
-lead vocals were shared.
+Metadata for the Fugazi discography.
 }
 \section{Provenance}{
- Raw-hand-curated in \code{Repeatr} (its \code{songvarslookup} object, edited by hand against Wikipedia). Exported (\code{track_number}/\code{duration_seconds} renamed to \code{release_track}/\code{release_duration}, the latter converted from seconds to a \code{Period}) by \code{Repeatr::export_fugazidb_data()}.
+ Derived-cleaned in \code{Repeatr} (its \code{releasesdatalookup} object, minus the graph-only \code{colour_code} column, the snake_case \code{variable} column, the rateyourmusic.com-sourced \code{rym_rating} column, and the four synthetic bucket rows). Exported by \code{Repeatr::export_fugazidb_data()}.
 }
 
 \examples{

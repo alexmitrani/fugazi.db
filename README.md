@@ -28,12 +28,12 @@ them together.
 
 | Object | Description |
 |---|---|
-| `fls_shows` | One row per show: date, venue, attendance, sound quality |
-| `fls_venue_geocoding` | Venue coordinates |
-| `fls_tags` | Per-track duration data, keyed by `gid`, parsed from personal MP3 tag exports |
-| `releases` | Per-release metadata (release date) |
-| `discography` | Per-song studio discography metadata (release, vocals, instrumental) |
-| `played_with` | One row per show and band Fugazi played with, keyed by `gid` |
+| `shows` | One row per show: date, venue, price/currency, attendance, sound quality |
+| `locations` | Venue coordinates (latitude/longitude) |
+| `durations` | Per-track duration data, keyed by `gid`, parsed from personal MP3 tag exports |
+| `discography` | Per-release metadata (release date) |
+| `songs` | Per-song studio discography metadata (release, vocals, instrumental) |
+| `bands` | One row per show and band Fugazi played with, keyed by `gid` |
 
 Each table is a fact table - corrected and reformatted, but not joined,
 summarized, or modelled.
