@@ -59,7 +59,7 @@
 #' \item{latitude}{Latitude, in decimal degrees, using the WGS 84 datum}
 #' \item{longitude}{Longitude, in decimal degrees, using the WGS 84 datum}
 #' }
-#' @section Provenance: Not necessarily sufficient on its own to reproduce every coordinate in \code{\link{shows}}, since a handful of venues are resolved via additional maintainer corrections rather than this table.
+#' @section Provenance: Coordinates defined by package maintainer using information from the Fugazi Live Series and other sources.
 #' @examples
 #' locations
 "locations"
@@ -72,7 +72,7 @@
 #' extracted from MP3 files with \href{https://kid3.kde.org/}{kid3}.
 #' Some corrections were made in a few cases.
 #'
-#' @source Fugazi Live Series.
+#' @source https://www.dischord.com/fugazi_live_series
 #' @format dataframe with one row for each track in the tagged collection.
 #' \describe{
 #' \item{gid}{show id, references \code{\link{shows}}}
