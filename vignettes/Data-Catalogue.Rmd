@@ -17,17 +17,14 @@ knitr::opts_chunk$set(
 
 ## Introduction
 
-`fugazibase` ships six lazy-loaded data objects - cleaned, corrected
+`fugazibase` includes six lazy-loaded data objects - cleaned, corrected
 reference data behind the Fugazi Live Series. This vignette describes each
-table and, most importantly, **how they join together** - see each object's
+table and **how they can be joined together**. See each object's
 own help page (e.g. `?shows`) for the full column-by-column description.
 
 This vignette contains no runnable code of its own - `fugazibase` has no
-functions, so every example below uses only base R/dplyr on this package's
-own data. Each table is cleaned, corrected, and reformatted by the package
-maintainer from the sources described in the package README and each
-table's own help page (e.g. `?shows`), and is refreshed periodically as new
-shows are documented or corrections are made to the underlying sources.
+functions, so every example below uses only base R and dplyr on this package's
+own data. Each table has been cleaned, corrected, and reformatted from the sources described in the package README and each table's own help page (e.g. `?shows`), and is updated occasionally as new information becomes available.
 
 ## The tables
 
@@ -37,25 +34,27 @@ shows are documented or corrections are made to the underlying sources.
 | `locations` | venue | `country`+`city`+`venue` |
 | `durations` | tagged MP3 track | `gid`; `song` |
 | `discography` | release (album/EP) | `releaseid` |
-| `songs` | song | `song` (title text); `releaseid` |
-| `bands` | show + co-billed band | `gid` |
+| `songs` | song | `song` (title); `releaseid` |
+| `bands` | show + band | `gid` |
 
-## Join keys
+## Joining tables
 
 ### `gid` - the show identifier
 
-`gid` is a slug built from city, country, and date (e.g.
+`gid` (gig id) is a slug built from city, country, and date (e.g.
 `washington-dc-usa-90387`), and is the primary key of `shows`. It is
-also the primary key of `durations` and `bands` - join either of those
-to `shows` (or to each other) on `gid`.
+also the primary key of `durations` and `bands` - either of those
+can be joined to `shows` using `gid`.
 
 ```{r}
 library(fugazibase)
 library(dplyr)
 
-# every show, with its tagged tracks
-shows %>%
+# every show with its revorded tracks
+shows_tracks <- shows |>
   left_join(durations, by = "gid")
+
+shows_tracks
 ```
 
 ### `country` + `city` + `venue` - venue coordinates
@@ -67,17 +66,14 @@ coordinates to a show. `city` is the plain city name, the same as in
 (Portland, Columbia, Croydon, Newcastle, Oxford, Springfield), so
 `country` and `venue` are both needed alongside `city` to pin down a
 single row. Coordinates are latitude/longitude in decimal degrees, using
-the WGS 84 datum. A handful of venues are resolved via additional
-maintainer corrections not present in this table, so this join won't
-cover every show.
+the WGS 84 datum. 
 
 ```{r}
 # every show, with its venue's coordinates
-shows %>%
+shows_locations <- shows |>
   left_join(locations, by = c("country", "city", "venue"))
 
-# venues with no confirmed coordinates yet
-locations %>% filter(is.na(longitude) | is.na(latitude))
+shows_locations
 ```
 
 ### `song` - song metadata
@@ -88,9 +84,11 @@ studio discography metadata (release, vocals, instrumental, duration).
 to attach song metadata to a specific live rendition.
 
 ```{r}
-# every tagged track, with its song metadata
-durations %>%
+# every recorded track, with song information
+durations_songs <- durations |>
   left_join(songs, by = "song")
+
+durations_songs
 ```
 
 ### `releaseid` - discography structure
@@ -99,9 +97,12 @@ durations %>%
 
 ```{r}
 # every song, with its release's name and date
-songs %>%
-  left_join(discography, by = "releaseid") %>%
-  select(song, release, releasedate)
+songs_discography <- songs |>
+  left_join(discography, by = "releaseid") |>
+  select(song, release_track, release, releasedate) |>
+  arrange(releasedate, release_track)
+
+songs_discography
 ```
 
 This package's data is refreshed periodically by the maintainer as new

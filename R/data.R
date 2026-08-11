@@ -92,7 +92,7 @@
 #' and some corrections were made.
 #' join \code{\link{shows}} on `gid` to attach a show's date and other details.
 #' join \code{\link{songs}} on `song` to attach details of each song.
-#' @examples
+#' @examplesIf requireNamespace("dplyr", quietly = TRUE)
 #' # to calculate total duration summed across all tracks. Duration is converted to seconds,
 #' # then summed, then converted back to period format which displays time in normal units.
 #' durations |>
@@ -151,9 +151,11 @@
 #' \item{vocals_lally}{indicates whether or not Joe Lally sang lead vocals on this track}
 #' \item{release_duration}{The song's duration on its studio release, an hms `Period` object (same format as \code{\link{durations}}'s `duration`)}
 #' }
-#' @examples
+#' @examplesIf requireNamespace("dplyr", quietly = TRUE)
 #' # join the discography and songs data frames, order by releaseid and release_track
-#' discography |> dplyr::left_join(songs) |> dplyr::arrange(releaseid, release_track)
+#' discography |>
+#' dplyr::left_join(songs) |>
+#' dplyr::arrange(releaseid, release_track)
 "songs"
 
 # Bands played with --------------------------------------------------------
@@ -169,7 +171,7 @@
 #' \item{gid}{show id, can be used to join with \code{\link{shows}}}
 #' \item{band}{Band name}
 #' }
-#' @examples
+#' @examplesIf requireNamespace("dplyr", quietly = TRUE)
 #' # rank the bands by the number of times they played with Fugazi.
 #' bands |>
 #' dplyr::group_by(band) |>

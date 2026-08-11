@@ -29,7 +29,11 @@ variables attributing lead vocals are simplifications in some cases where
 lead vocals were shared.
 }
 \examples{
+\dontshow{if (requireNamespace("dplyr", quietly = TRUE)) withAutoprint(\{ # examplesIf}
 # join the discography and songs data frames, order by releaseid and release_track
-discography |> dplyr::left_join(songs) |> dplyr::arrange(releaseid, release_track)
+discography |>
+dplyr::left_join(songs) |>
+dplyr::arrange(releaseid, release_track)
+\dontshow{\}) # examplesIf}
 }
 \keyword{datasets}

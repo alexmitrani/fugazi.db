@@ -22,11 +22,13 @@ One row per show and band Fugazi played with. In a few cases extra
 information was added from other sources.
 }
 \examples{
+\dontshow{if (requireNamespace("dplyr", quietly = TRUE)) withAutoprint(\{ # examplesIf}
 # rank the bands by the number of times they played with Fugazi.
 bands |>
 dplyr::group_by(band) |>
 dplyr::summarize(number_shows = dplyr::n()) |>
 dplyr::ungroup() |>
 dplyr::arrange(desc(number_shows))
+\dontshow{\}) # examplesIf}
 }
 \keyword{datasets}

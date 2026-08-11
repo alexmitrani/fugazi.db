@@ -36,6 +36,7 @@ One observation for each studio album or EP.
 }
 
 \examples{
+# List the fugazi discography (studio albums and EPs) with release dates in chronological order.
 discography
 }
 \keyword{datasets}

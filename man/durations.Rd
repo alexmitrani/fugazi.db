@@ -31,6 +31,7 @@ join \code{\link{songs}} on \code{song} to attach details of each song.
 }
 
 \examples{
+\dontshow{if (requireNamespace("dplyr", quietly = TRUE)) withAutoprint(\{ # examplesIf}
 # to calculate total duration summed across all tracks. Duration is converted to seconds,
 # then summed, then converted back to period format which displays time in normal units.
 durations |>
@@ -38,5 +39,6 @@ dplyr::group_by() |>
 dplyr::summarize(total_duration = lubridate::seconds_to_period(
 sum(lubridate::period_to_seconds(duration)))) |>
 dplyr::ungroup()
+\dontshow{\}) # examplesIf}
 }
 \keyword{datasets}
