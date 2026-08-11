@@ -129,6 +129,7 @@
 #' | furniture | <https://musicbrainz.org/release-group/4042fe4e-0444-338b-9f2a-ac80faabcb1f> |
 #' | first demo | <https://musicbrainz.org/release-group/753fb03e-65f5-4805-afe9-373ed573cf87> |
 #' @examples
+#' # List the fugazi discography (studio albums and EPs) with release dates in chronological order.
 #' discography
 "discography"
 
