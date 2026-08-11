@@ -23,7 +23,7 @@
 #' \describe{
 #' \item{gid}{show id - a slug built from city, country, and date (e.g. "washington-dc-usa-90387"); the primary key of this table and of every other table in this package that has a `gid` column}
 #' \item{flsid}{Fugazi Live Series id}
-#' \item{date}{Show date in format YYYY-MM-DD}
+#' \item{date}{Show date, in format YYYY-MM-DD}
 #' \item{venue}{Venue}
 #' \item{price}{Door price, numeric}
 #' \item{currency}{Door price's currency, an ISO 4217 three-letter code (e.g. "USD", "GBP") - `NA` when the door price is unknown. Reflects the currency in use in that country at the time of the show, which may differ from its currency today (several countries' shows predate that country's adoption of the euro).}
@@ -44,7 +44,7 @@
 #' dplyr::group_by(sound_quality) |>
 #' dplyr::summarize(number_shows = dplyr::n()) |>
 #' dplyr::ungroup() |>
-#' dplyr::arrange(-number_shows)
+#' dplyr::arrange(desc(number_shows))
 "shows"
 
 # Venue coordinates -------------------------------------------------------
@@ -70,7 +70,7 @@
 #' dplyr::group_by(country) |>
 #' dplyr::summarize(number_venues = dplyr::n()) |>
 #' dplyr::ungroup() |>
-#' dplyr::arrange(-number_venues)
+#' dplyr::arrange(desc(number_venues))
 "locations"
 
 # Duration data ------------------------------------------------------
@@ -112,7 +112,7 @@
 #' \describe{
 #' \item{releaseid}{numeric id in ascending chronological order, references \code{\link{songs}}}
 #' \item{release}{release name}
-#' \item{releasedate}{release date}
+#' \item{releasedate}{Release date, in format YYYY-MM-DD.}
 #' }
 #' @section Notes:
 #' | Release | Release date source |
@@ -139,11 +139,11 @@
 #' lead vocals were shared.
 #'
 #' @source https://web.archive.org/web/20201112000517/http://en.wikipedia.org/wiki/Fugazi_discography
-#' @format dataframe with one row for each song in the Fugazi discography.
+#' @format Data frame with 92 observations of 8 variables.
 #' \describe{
-#' \item{song}{The name of the song - the join key this table (and \code{\link{durations}}) is keyed on}
+#' \item{song}{The name of the song - can be used to join this table with \code{\link{durations}}}
 #' \item{releaseid}{numeric id of the release the song appears on, references \code{\link{discography}}}
-#' \item{release_track}{The song's track number on its studio release (distinct from \code{\link{durations}}'s `track`, which numbers a specific live/tagged recording)}
+#' \item{release_track}{The song's track number on the studio release (distinct from \code{\link{durations}}'s `track`, which numbers a specific live recording)}
 #' \item{instrumental}{Indicates whether or not the piece is an instrumental}
 #' \item{vocals_picciotto}{indicates whether or not Guy Picciotto sang lead vocals on this track}
 #' \item{vocals_mackaye}{indicates whether or not Ian Mackaye sang lead vocals on this track}
@@ -151,7 +151,8 @@
 #' \item{release_duration}{The song's duration on its studio release, an hms `Period` object (same format as \code{\link{durations}}'s `duration`)}
 #' }
 #' @examples
-#' songs
+#' # join the discography and songs data frames, order by releaseid and release_track
+#' discography |> dplyr::left_join(songs) |> dplyr::arrange(releaseid, release_track)
 "songs"
 
 # Bands played with --------------------------------------------------------
@@ -162,11 +163,16 @@
 #' information was added from other sources.
 #'
 #' @source https://www.dischord.com/fugazi_live_series
-#' @format dataframe with one row for each show and band Fugazi played with.
+#' @format Data frame with 1669 observations of 2 variables.
 #' \describe{
-#' \item{gid}{show id, references \code{\link{shows}}}
+#' \item{gid}{show id, can be used to join with \code{\link{shows}}}
 #' \item{band}{Band name}
 #' }
 #' @examples
-#' bands
+#' # rank the bands by the number of times they played with Fugazi.
+#' bands |>
+#' dplyr::group_by(band) |>
+#' dplyr::summarize(number_shows = dplyr::n()) |>
+#' dplyr::ungroup() |>
+#' dplyr::arrange(desc(number_shows))
 "bands"

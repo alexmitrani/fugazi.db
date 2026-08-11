@@ -9,7 +9,7 @@ Data frame with 1049 observations and 15 variables.
 \describe{
 \item{gid}{show id - a slug built from city, country, and date (e.g. "washington-dc-usa-90387"); the primary key of this table and of every other table in this package that has a \code{gid} column}
 \item{flsid}{Fugazi Live Series id}
-\item{date}{Show date in format YYYY-MM-DD}
+\item{date}{Show date, in format YYYY-MM-DD}
 \item{venue}{Venue}
 \item{price}{Door price, numeric}
 \item{currency}{Door price's currency, an ISO 4217 three-letter code (e.g. "USD", "GBP") - \code{NA} when the door price is unknown. Reflects the currency in use in that country at the time of the show, which may differ from its currency today (several countries' shows predate that country's adoption of the euro).}
