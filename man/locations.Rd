@@ -22,7 +22,8 @@ Venue coordinates for the Fugazi Live Series, hand-curated with reference to
 the available information for each show on the Fugazi Live Series website and elsewhere.
 }
 \section{Notes}{
- Precision of the coordinates will vary depending on the available information in each case.
+ Precision of the coordinates will vary
+depending on the available information in each case.
 }
 
 \examples{

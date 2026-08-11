@@ -24,16 +24,19 @@ Duration data for each Fugazi Live Series audio track,
 extracted from MP3 files with \href{https://kid3.kde.org/}{kid3}.
 }
 \section{Notes}{
- MP3 tags were edited to get a consistent format for each album, and some corrections were made.
+ MP3 tags were edited to get a consistent format for each album,
+and some corrections were made.
 join \code{\link{shows}} on \code{gid} to attach a show's date and other details.
 join \code{\link{songs}} on \code{song} to attach details of each song.
 }
 
 \examples{
-# to calculate total duration summed across all tracks. Duration is converted to seconds, then summed, then converted back to period format which displays time in normal units.
+# to calculate total duration summed across all tracks. Duration is converted to seconds,
+# then summed, then converted back to period format which displays time in normal units.
 durations |>
 dplyr::group_by() |>
-dplyr::summarize(total_duration = lubridate::seconds_to_period(sum(lubridate::period_to_seconds(duration)))) |>
+dplyr::summarize(total_duration = lubridate::seconds_to_period(
+sum(lubridate::period_to_seconds(duration)))) |>
 dplyr::ungroup()
 }
 \keyword{datasets}

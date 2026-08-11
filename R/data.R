@@ -23,7 +23,7 @@
 #' \describe{
 #' \item{gid}{show id - a slug built from city, country, and date (e.g. "washington-dc-usa-90387"); the primary key of this table and of every other table in this package that has a `gid` column}
 #' \item{flsid}{Fugazi Live Series id}
-#' \item{date}{Show date}
+#' \item{date}{Show date in format YYYY-MM-DD}
 #' \item{venue}{Venue}
 #' \item{price}{Door price, numeric}
 #' \item{currency}{Door price's currency, an ISO 4217 three-letter code (e.g. "USD", "GBP") - `NA` when the door price is unknown. Reflects the currency in use in that country at the time of the show, which may differ from its currency today (several countries' shows predate that country's adoption of the euro).}
@@ -62,7 +62,8 @@
 #' \item{latitude}{Latitude, in decimal degrees, using the WGS 84 datum}
 #' \item{longitude}{Longitude, in decimal degrees, using the WGS 84 datum}
 #' }
-#' @section Notes: Precision of the coordinates will vary depending on the available information in each case.
+#' @section Notes: Precision of the coordinates will vary
+#' depending on the available information in each case.
 #' @examplesIf requireNamespace("dplyr", quietly = TRUE)
 #' # to calculate number of venues per country
 #' locations |>
@@ -87,14 +88,17 @@
 #' \item{song}{Track name. References \code{\link{songs}}}
 #' \item{duration}{Track duration, an hms `Period` object}
 #' }
-#' @section Notes: MP3 tags were edited to get a consistent format for each album, and some corrections were made.
+#' @section Notes: MP3 tags were edited to get a consistent format for each album,
+#' and some corrections were made.
 #' join \code{\link{shows}} on `gid` to attach a show's date and other details.
 #' join \code{\link{songs}} on `song` to attach details of each song.
 #' @examples
-#' # to calculate total duration summed across all tracks. Duration is converted to seconds, then summed, then converted back to period format which displays time in normal units.
+#' # to calculate total duration summed across all tracks. Duration is converted to seconds,
+#' # then summed, then converted back to period format which displays time in normal units.
 #' durations |>
 #' dplyr::group_by() |>
-#' dplyr::summarize(total_duration = lubridate::seconds_to_period(sum(lubridate::period_to_seconds(duration)))) |>
+#' dplyr::summarize(total_duration = lubridate::seconds_to_period(
+#' sum(lubridate::period_to_seconds(duration)))) |>
 #' dplyr::ungroup()
 "durations"
 
@@ -102,16 +106,16 @@
 
 #' Fugazi releases data
 #'
-#' Metadata for the Fugazi discography.
+#' One observation for each studio album or EP.
 #'
-#' @format dataframe with one row for each release.
+#' @format Data frame with 11 observations of 3 variables.
 #' \describe{
 #' \item{releaseid}{numeric id in ascending chronological order, references \code{\link{songs}}}
 #' \item{release}{release name}
 #' \item{releasedate}{release date}
 #' }
-#' @section Release date sources:
-#' | Release | Date source |
+#' @section Notes:
+#' | Release | Release date source |
 #' |---|---|
 #' | fugazi | <https://rateyourmusic.com/release/ep/fugazi/fugazi/> |
 #' | margin walker | <https://www.dischord.com/release/035/margin-walker> |

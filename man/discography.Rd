@@ -5,7 +5,7 @@
 \alias{discography}
 \title{Fugazi releases data}
 \format{
-dataframe with one row for each release.
+Data frame with 11 observations of 3 variables.
 \describe{
 \item{releaseid}{numeric id in ascending chronological order, references \code{\link{songs}}}
 \item{release}{release name}
@@ -16,11 +16,11 @@ dataframe with one row for each release.
 discography
 }
 \description{
-Metadata for the Fugazi discography.
+One observation for each studio album or EP.
 }
-\section{Release date sources}{
+\section{Notes}{
 \tabular{ll}{
-   Release \tab Date source \cr
+   Release \tab Release date source \cr
    fugazi \tab \url{https://rateyourmusic.com/release/ep/fugazi/fugazi/} \cr
    margin walker \tab \url{https://www.dischord.com/release/035/margin-walker} \cr
    3 songs \tab \url{https://musicbrainz.org/release-group/43766318-cb47-4398-a877-0bfcbb09ad5a} \cr
