@@ -1,25 +1,16 @@
 # fugazibase
 
-`fugazibase` is a data-only R package containing tidy, corrected reference
-data documenting the live performance history of the band Fugazi: show
-listings, venue coordinates, track durations, and discography metadata. It
-ships no functions - only data - so using it is just a matter of installing
-the package and referring to its tables like any other data frame.
+`fugazibase` is a package of tidy data documenting the live performance history of the band Fugazi. 
+The data includes details of all the live shows, which songs were played and the durations of 
+each track of each live recording, which other bands accompanied Fugazi on each occasion, 
+the venue locations, and details of the Fugazi studio discography.  
+    
 
-## Data source and copyright
+## Data sources
 
-Show dates, venues, attendance, and setlists are drawn primarily from the
-[Fugazi Live Series](https://www.dischord.com/fugazi_live_series), an
-archive maintained by **Dischord Records**, Fugazi's label, and are
-copyright Dischord Records. Discography metadata comes from Wikipedia, and
-track durations were extracted from a personally tagged MP3 collection.
-Venue geocoding and the cleaning, correction, and re-organization of the
-raw data into the tables shipped here are original work by the package
-maintainer.
-
-Permission to redistribute the Fugazi Live Series data openly has been
-requested and is pending a reply - see [`LICENSE`](LICENSE) for the current
-copyright status and terms.
+The primary source is the [Fugazi Live Series](https://www.dischord.com/fugazi_live_series) website. 
+The Fugazi Live Series data is supplemented with data from other sources, 
+for instance to establish the coordinates of the venue locations. 
 
 ## Installation
 
@@ -77,15 +68,13 @@ them together.
 |---|---|
 | `shows` | One row per show: date, venue, price/currency, attendance, sound quality |
 | `locations` | Venue coordinates (latitude/longitude, WGS 84) |
-| `durations` | Per-track duration data, keyed by `gid`, parsed from personal MP3 tag exports |
-| `discography` | Per-release metadata (release date) |
-| `songs` | Per-song studio discography metadata (release, vocals, instrumental) |
+| `durations` | Per-track duration data, keyed by `gid`, parsed from MP3 tag data |
+| `discography` | Release dates for the Fugazi studio albums and EPs |
+| `songs` | Details of each song in the studio discography: release, vocals, instrumentals |
 | `bands` | One row per show and band Fugazi played with, keyed by `gid` |
 
-Each table is a fact table - corrected and reformatted, but not joined,
-summarized, or modelled. Data is refreshed periodically by the maintainer
-as new shows are documented or corrections are made to the underlying
-sources.
+Each table is a set of data - corrected and reformatted, but not joined,
+summarized, or modelled. 
 
-An interactive map and dashboard built on this data is available at
+An interactive web application based on this data can be found at
 [Fugazetteer](https://alexmitrani.shinyapps.io/Fugazetteer/).

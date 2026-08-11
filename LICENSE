@@ -9,7 +9,7 @@ was originally sourced from the Fugazi Live Series website
 (https://www.dischord.com/fugazi_live_series), which is copyright Dischord
 Records.
 
-Cleaning, corrections, venue geocoding, and re-organization of the raw data
+Tidying, venue geocoding, and assembly of the raw data
 into the tables included here are original work by the package maintainer,
 Alex Mitrani.
 
@@ -17,11 +17,9 @@ License terms
 --------------
 
 Permission to redistribute Dischord Records' underlying show data openly
-has been requested and is pending a reply. Until that permission is
-confirmed, this package's copy of that data is provided for personal,
-non-commercial, and research use only; it is not licensed for
+has been requested and is pending a reply. For the moment, this package is provided
+for personal, non-commercial, and research use only; it is not licensed for
 redistribution.
 
-Questions about reuse should be directed to the package maintainer (see
-DESCRIPTION) and, for the underlying source data itself, to Dischord
-Records.
+Questions about reuse of the package should be directed to the package maintainer
+(see DESCRIPTION) and, for the Fugazi Live Series data, to Dischord Records.
