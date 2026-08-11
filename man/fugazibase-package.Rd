@@ -26,7 +26,7 @@ Useful links:
 
 Other contributors:
 \itemize{
-  \item Dischord Records (copyright holder of the underlying Fugazi Live Series show data - see LICENSE) [copyright holder]
+  \item Dischord Records (copyright holder of the Fugazi Live Series data - see LICENSE) [copyright holder]
 }
 
 }
