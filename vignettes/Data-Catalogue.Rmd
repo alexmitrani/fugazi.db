@@ -17,12 +17,12 @@ knitr::opts_chunk$set(
 
 ## Introduction
 
-`fugazi.db` ships six lazy-loaded data objects - cleaned, corrected
+`fugazibase` ships six lazy-loaded data objects - cleaned, corrected
 reference data behind the Fugazi Live Series. This vignette describes each
 table and, most importantly, **how they join together** - see each object's
 own help page (e.g. `?shows`) for the full column-by-column description.
 
-This vignette contains no runnable code of its own - `fugazi.db` has no
+This vignette contains no runnable code of its own - `fugazibase` has no
 functions, so every example below uses only base R/dplyr on this package's
 own data. Each table is cleaned, corrected, and reformatted by the package
 maintainer from the sources described in the package README and each
@@ -50,7 +50,7 @@ also the primary key of `durations` and `bands` - join either of those
 to `shows` (or to each other) on `gid`.
 
 ```{r}
-library(fugazi.db)
+library(fugazibase)
 library(dplyr)
 
 # every show, with its tagged tracks

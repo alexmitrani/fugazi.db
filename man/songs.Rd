@@ -5,11 +5,11 @@
 \alias{songs}
 \title{Fugazi studio discography data}
 \format{
-dataframe with one row for each song in the Fugazi discography.
+Data frame with 92 observations of 8 variables.
 \describe{
-\item{song}{The name of the song - the join key this table (and \code{\link{durations}}) is keyed on}
+\item{song}{The name of the song - can be used to join this table with \code{\link{durations}}}
 \item{releaseid}{numeric id of the release the song appears on, references \code{\link{discography}}}
-\item{release_track}{The song's track number on its studio release (distinct from \code{\link{durations}}'s \code{track}, which numbers a specific live/tagged recording)}
+\item{release_track}{The song's track number on the studio release (distinct from \code{\link{durations}}'s \code{track}, which numbers a specific live recording)}
 \item{instrumental}{Indicates whether or not the piece is an instrumental}
 \item{vocals_picciotto}{indicates whether or not Guy Picciotto sang lead vocals on this track}
 \item{vocals_mackaye}{indicates whether or not Ian Mackaye sang lead vocals on this track}
@@ -29,6 +29,7 @@ variables attributing lead vocals are simplifications in some cases where
 lead vocals were shared.
 }
 \examples{
-songs
+# join the discography and songs data frames, order by releaseid and release_track
+discography |> dplyr::left_join(songs) |> dplyr::arrange(releaseid, release_track)
 }
 \keyword{datasets}

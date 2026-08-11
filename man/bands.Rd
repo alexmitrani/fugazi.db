@@ -5,9 +5,9 @@
 \alias{bands}
 \title{Fugazi Live Series data on bands that Fugazi played with}
 \format{
-dataframe with one row for each show and band Fugazi played with.
+Data frame with 1669 observations of 2 variables.
 \describe{
-\item{gid}{show id, references \code{\link{shows}}}
+\item{gid}{show id, can be used to join with \code{\link{shows}}}
 \item{band}{Band name}
 }
 }
@@ -22,6 +22,11 @@ One row per show and band Fugazi played with. In a few cases extra
 information was added from other sources.
 }
 \examples{
-bands
+# rank the bands by the number of times they played with Fugazi.
+bands |>
+dplyr::group_by(band) |>
+dplyr::summarize(number_shows = dplyr::n()) |>
+dplyr::ungroup() |>
+dplyr::arrange(desc(number_shows))
 }
 \keyword{datasets}

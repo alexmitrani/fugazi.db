@@ -45,7 +45,7 @@ shows |>
 dplyr::group_by(sound_quality) |>
 dplyr::summarize(number_shows = dplyr::n()) |>
 dplyr::ungroup() |>
-dplyr::arrange(-number_shows)
+dplyr::arrange(desc(number_shows))
 \dontshow{\}) # examplesIf}
 }
 \keyword{datasets}

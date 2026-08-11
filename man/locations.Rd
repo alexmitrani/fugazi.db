@@ -33,7 +33,7 @@ locations |>
 dplyr::group_by(country) |>
 dplyr::summarize(number_venues = dplyr::n()) |>
 dplyr::ungroup() |>
-dplyr::arrange(-number_venues)
+dplyr::arrange(desc(number_venues))
 \dontshow{\}) # examplesIf}
 }
 \keyword{datasets}

@@ -1,6 +1,6 @@
-# fugazi.db
+# fugazibase
 
-`fugazi.db` is a data-only R package containing tidy, corrected reference
+`fugazibase` is a data-only R package containing tidy, corrected reference
 data documenting the live performance history of the band Fugazi: show
 listings, venue coordinates, track durations, and discography metadata. It
 ships no functions - only data - so using it is just a matter of installing
@@ -27,7 +27,7 @@ copyright status and terms.
 
 ```r
 # install.packages("remotes")
-remotes::install_github("alexmitrani/fugazi.db")
+remotes::install_github("alexmitrani/fugazibase")
 ```
 
 ### New to R?
@@ -51,16 +51,16 @@ If you don't already have R and RStudio installed, follow these steps:
    ```r
    install.packages("remotes")
    ```
-5. **Install `fugazi.db`.** In the Console, type the line below and press
+5. **Install `fugazibase`.** In the Console, type the line below and press
    Enter:
 
    ```r
-   remotes::install_github("alexmitrani/fugazi.db")
+   remotes::install_github("alexmitrani/fugazibase")
    ```
 6. **Load the package** whenever you want to use its data:
 
    ```r
-   library(fugazi.db)
+   library(fugazibase)
    shows
    ```
 
@@ -69,7 +69,7 @@ If you don't already have R and RStudio installed, follow these steps:
 
 ## What's here
 
-Six lazy-loaded data objects - see `vignette("Data-Catalogue", package = "fugazi.db")`
+Six lazy-loaded data objects - see `vignette("Data-Catalogue", package = "fugazibase")`
 for a full description of each table, its columns, and the keys used to join
 them together.
 

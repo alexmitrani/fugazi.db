@@ -1,10 +1,10 @@
-#' fugazi.db: Tidy Data from the Fugazi Live Series
+#' fugazibase: Tidy Data from the Fugazi Live Series
 #'
 #' Tidy, corrected reference data documenting the live performance history
 #' of the band Fugazi - show listings, venue coordinates, durations, and
 #' discography metadata - sourced primarily from the Fugazi Live Series
 #' website maintained by Dischord Records. See
-#' \code{vignette("Data-Catalogue", package = "fugazi.db")} for a full
+#' \code{vignette("Data-Catalogue", package = "fugazibase")} for a full
 #' description of every table and the keys used to join them together.
 #'
 #' @import lubridate
