@@ -1,11 +1,10 @@
 #' fugazibase: Tidy Data from the Fugazi Live Series
 #'
-#' Tidy, corrected reference data documenting the live performance history
+#' Tidy reference data documenting the live performance history
 #' of the band Fugazi - show listings, venue coordinates, durations, and
-#' discography metadata - sourced primarily from the Fugazi Live Series
-#' website maintained by Dischord Records. See
-#' \code{vignette("Data-Catalogue", package = "fugazibase")} for a full
-#' description of every table and the keys used to join them together.
+#' discography - sourced primarily from the Fugazi Live Series
+#' website maintained by Dischord Records. See \code{vignette("Data-Catalogue", package = "fugazibase")}
+#' for a full description of every table and the variables used to join them together.
 #'
 #' @import lubridate
 #' @keywords internal
@@ -21,8 +20,8 @@
 #' @source https://www.dischord.com/fugazi_live_series
 #' @format Data frame with 1049 observations and 15 variables.
 #' \describe{
-#' \item{gid}{show id - a slug built from city, country, and date (e.g. "washington-dc-usa-90387"); the primary key of this table and of every other table in this package that has a `gid` column}
-#' \item{flsid}{Fugazi Live Series id}
+#' \item{gid}{Gig id - a slug built from city, country, and date (e.g. "washington-dc-usa-90387"). This can be used to link to the Fugazi Live Series page for each show.}
+#' \item{flsid}{Fugazi Live Series id as specified on the details page of each show on the Fugazi Live Series website.}
 #' \item{date}{Show date, in format YYYY-MM-DD}
 #' \item{venue}{Venue}
 #' \item{price}{Door price, numeric}
@@ -32,12 +31,12 @@
 #' \item{mastered_by}{Mastered by}
 #' \item{original_source}{Original source}
 #' \item{tour}{The touring period the show belongs to, scraped from the FLS listing pages' own tour headings}
-#' \item{city}{City - plain city name (e.g. "Portland", "Columbia", "Croydon"); see `subdivision`/`country` to disambiguate cities that share a name with another Fugazi tour stop}
-#' \item{subdivision}{Subnational administrative unit (US state, DC, Canadian province, Australian state/territory, or Brazilian state), where applicable (`NA` elsewhere)}
+#' \item{city}{City name - use `subdivision` and `country` to disambiguate cities that might share a name with another Fugazi tour stop}
+#' \item{subdivision}{Subnational administrative unit (US state, DC, Canadian province, Australian state/territory, or Brazilian state), where applicable (`NA` elsewhere). These are ISO 3166-2 codes.}
 #' \item{country}{Country}
 #' \item{sound_quality}{Sound quality rating: Excellent, Very Good, Good, or Poor}
 #' }
-#' @section Notes: Venue coordinates are not included here; join \code{\link{locations}} on `country`, `city`, and `venue` to attach them.
+#' @section Notes: join \code{\link{locations}} on `country`, `city`, and `venue` to attach venue coordinates.
 #' @examplesIf requireNamespace("dplyr", quietly = TRUE)
 #' # to calculate number of shows by sound quality rating:
 #' shows |>
@@ -45,6 +44,12 @@
 #' dplyr::summarize(number_shows = dplyr::n()) |>
 #' dplyr::ungroup() |>
 #' dplyr::arrange(desc(number_shows))
+#' #
+#' # to get a summary of shows by tour:
+#' shows |> dplyr::group_by(tour) |>
+#' dplyr::summarise(start_date = min(date), end_date = max(date), shows = dplyr::n()) |>
+#' dplyr::ungroup() |>
+#' dplyr::arrange(start_date)
 "shows"
 
 # Venue coordinates -------------------------------------------------------
@@ -62,8 +67,8 @@
 #' \item{latitude}{Latitude, in decimal degrees, using the WGS 84 datum}
 #' \item{longitude}{Longitude, in decimal degrees, using the WGS 84 datum}
 #' }
-#' @section Notes: Precision of the coordinates will vary
-#' depending on the available information in each case.
+#' @section Notes: The precision of the coordinates will vary
+#' depending on whether or not there was an address, map or directions in the show information.
 #' @examplesIf requireNamespace("dplyr", quietly = TRUE)
 #' # to calculate number of venues per country
 #' locations |>
@@ -78,19 +83,19 @@
 #' Fugazi Live Series duration data
 #'
 #' Duration data for each Fugazi Live Series audio track,
-#' extracted from MP3 files with \href{https://kid3.kde.org/}{kid3}.
+#' extracted from the MP3 files.
 #'
 #' @source https://www.dischord.com/fugazi_live_series
 #' @format Data frame with 24513 observations and 4 variables.
 #' \describe{
-#' \item{gid}{show id. References \code{\link{shows}}}
-#' \item{track}{Track number within each album}
-#' \item{title}{Track name. References \code{\link{songs}}}
-#' \item{duration}{Track duration, an hms `Period` object}
+#' \item{gid}{Gig id. Can be used to join with \code{\link{shows}}}
+#' \item{track}{Track number within each live recording}
+#' \item{title}{Track title. Can be used to join with \code{\link{songs}}}
+#' \item{duration}{Track duration. This is an hms `Period` object}
 #' }
-#' @section Notes: MP3 tags were edited to get a consistent format for each album,
+#' @section Notes: MP3 tags were edited to get a consistent format for each album title,
 #' and some corrections were made.
-#' join \code{\link{shows}} on `gid` to attach a show's date and other details.
+#' join \code{\link{shows}} on `gid` to attach details of each show.
 #' join \code{\link{songs}} on `title` to attach details of each song.
 #' @examplesIf requireNamespace("dplyr", quietly = TRUE)
 #' # to calculate total duration summed across all tracks. Duration is converted to seconds,
@@ -110,8 +115,8 @@
 #'
 #' @format Data frame with 11 observations of 3 variables.
 #' \describe{
-#' \item{rid}{numeric id in ascending chronological order, references \code{\link{songs}}}
-#' \item{release_title}{release name}
+#' \item{rid}{Release id in ascending chronological order, can be used to join with \code{\link{songs}}}
+#' \item{release_title}{Release name}
 #' \item{release_date}{Release date, in format YYYY-MM-DD.}
 #' }
 #' @section Notes:
@@ -135,21 +140,20 @@
 
 #' Fugazi studio discography data
 #'
-#' One row per song in the Fugazi studio discography, from Wikipedia. The
-#' variables attributing lead vocals are simplifications in some cases where
-#' lead vocals were shared.
+#' One row per song in the Fugazi studio discography. The
+#' variables attributing lead vocals are simplifications in cases where lead vocals were shared.
 #'
 #' @source https://web.archive.org/web/20201112000517/http://en.wikipedia.org/wiki/Fugazi_discography
 #' @format Data frame with 92 observations of 8 variables.
 #' \describe{
-#' \item{title}{The name of the song - can be used to join this table with \code{\link{durations}}}
-#' \item{rid}{numeric id of the release the song appears on, references \code{\link{discography}}}
-#' \item{release_track}{The song's track number on the studio release (distinct from \code{\link{durations}}'s `track`, which numbers a specific live recording)}
+#' \item{title}{The title of the song - can be used to join with \code{\link{durations}}}
+#' \item{rid}{Release id of the album or EP the song appears on, can be used to join with \code{\link{discography}}}
+#' \item{release_track}{The song's track number on the studio release}
 #' \item{instrumental}{Indicates whether or not the piece is an instrumental}
-#' \item{vocals_picciotto}{indicates whether or not Guy Picciotto sang lead vocals on this track}
-#' \item{vocals_mackaye}{indicates whether or not Ian Mackaye sang lead vocals on this track}
-#' \item{vocals_lally}{indicates whether or not Joe Lally sang lead vocals on this track}
-#' \item{release_duration}{The song's duration on its studio release, an hms `Period` object (same format as \code{\link{durations}}'s `duration`)}
+#' \item{vocals_picciotto}{Indicates whether or not Guy Picciotto sang lead vocals}
+#' \item{vocals_mackaye}{Indicates whether or not Ian Mackaye sang lead vocals}
+#' \item{vocals_lally}{Indicates whether or not Joe Lally sang lead vocals}
+#' \item{release_duration}{The song's duration on the corresponding studio release, an hms `Period` object.}
 #' }
 #' @examplesIf requireNamespace("dplyr", quietly = TRUE)
 #' # join the discography and songs data frames, order by rid and release_track
@@ -168,7 +172,7 @@
 #' @source https://www.dischord.com/fugazi_live_series
 #' @format Data frame with 1669 observations of 2 variables.
 #' \describe{
-#' \item{gid}{show id, can be used to join with \code{\link{shows}}}
+#' \item{gid}{Gig id, can be used to join with \code{\link{shows}}}
 #' \item{band}{Band name}
 #' }
 #' @examplesIf requireNamespace("dplyr", quietly = TRUE)

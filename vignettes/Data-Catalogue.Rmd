@@ -17,14 +17,13 @@ knitr::opts_chunk$set(
 
 ## Introduction
 
-`fugazibase` includes six lazy-loaded data objects - cleaned, corrected
-reference data behind the Fugazi Live Series. This vignette describes each
-table and **how they can be joined together**. See each object's
-own help page (e.g. `?shows`) for the full column-by-column description.
+`fugazibase` includes six tables of data from the Fugazi Live Series. 
+This vignette describes each table and **how they can be joined together**. 
+See each object's own help page (e.g. `?shows`) for the full column-by-column description.
 
 This vignette contains no runnable code of its own - `fugazibase` has no
 functions, so every example below uses only base R and dplyr on this package's
-own data. Each table has been cleaned, corrected, and reformatted from the sources described in the package README and each table's own help page (e.g. `?shows`), and is updated occasionally as new information becomes available.
+own data. Each table has been cleaned, corrected, and reformatted from the sources described in the package README the corresponding help page (e.g. `?shows`).
 
 ## The tables
 
@@ -32,8 +31,8 @@ own data. Each table has been cleaned, corrected, and reformatted from the sourc
 |---|---|---|
 | `shows` | show | `gid`; `country`+`city`+`venue` |
 | `locations` | venue | `country`+`city`+`venue` |
-| `durations` | tagged MP3 track | `gid`; `title` |
-| `discography` | release (album/EP) | `rid` |
+| `durations` | track | `gid`; `title` |
+| `discography` | release | `rid` |
 | `songs` | song | `title`; `rid` |
 | `bands` | show + band | `gid` |
 
@@ -42,8 +41,8 @@ own data. Each table has been cleaned, corrected, and reformatted from the sourc
 ### `gid` - the show identifier
 
 `gid` (gig id) is a slug built from city, country, and date (e.g.
-`washington-dc-usa-90387`), and is the primary key of `shows`. It is
-also the primary key of `durations` and `bands` - either of those
+`washington-dc-usa-90387`), and is the primary key of `shows`. 
+It is also included in `durations` and `bands`, both of which
 can be joined to `shows` using `gid`.
 
 ```{r}
@@ -59,14 +58,14 @@ shows_tracks
 
 ### `country` + `city` + `venue` - venue coordinates
 
-`locations` is keyed by the combination of `country`, `city`, and
-`venue` - join it onto `shows` on those three columns to attach
-coordinates to a show. `city` is the plain city name, the same as in
+The observations in `locations` are identified by the combination 
+of `country`, `city`, and `venue`. Locations data can be added to `shows` 
+by joining on those three columns. `city` is the city name, the same as in
 `shows`; a handful of towns share a name with another tour stop
 (Portland, Columbia, Croydon, Newcastle, Oxford, Springfield), so
-`country` and `venue` are both needed alongside `city` to pin down a
-single row. Coordinates are latitude/longitude in decimal degrees, using
-the WGS 84 datum. 
+`country` and `venue` are both needed together with `city` to pin down a
+specific location. Coordinates are latitude and longitude in decimal degrees, 
+using the WGS 84 datum. 
 
 ```{r}
 # every show, with its venue's coordinates
@@ -76,12 +75,11 @@ shows_locations <- shows |>
 shows_locations
 ```
 
-### `title` - song metadata
+### `title` - songs
 
-`songs` is keyed by `title` (the song title, as text), and carries
-studio discography metadata (release, vocals, instrumental, duration).
-`durations` is also keyed by `title` text for each tagged track - join the two
-to attach song metadata to a specific live rendition.
+The observations in `songs` are identified by `title` (the song title, as text), and include studio discography information (release, vocals, instrumental, duration).
+`durations` also includes `title` for each track - join the two tables
+to attach song metadata to the corresponding live renditions.
 
 ```{r}
 # every recorded track, with song information
@@ -93,7 +91,7 @@ durations_songs
 
 ### `rid` - discography structure
 
-`discography` is keyed by `rid`, referenced by `songs$rid`.
+`discography` is keyed by `rid` (release id), which is also included in `songs`.
 
 ```{r}
 # every song, with its release's name and date
@@ -105,5 +103,3 @@ songs_discography <- songs |>
 songs_discography
 ```
 
-This package's data is refreshed periodically by the maintainer as new
-shows are documented or corrections are made to the underlying sources.

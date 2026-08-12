@@ -61,17 +61,17 @@ If you don't already have R and RStudio installed, follow these steps:
 ## What's here
 
 Six lazy-loaded data objects - see `vignette("Data-Catalogue", package = "fugazibase")`
-for a full description of each table, its columns, and the keys used to join
+for a full description of each table, its columns, and the variables that can be used to join
 them together.
 
 | Object | Description |
 |---|---|
 | `shows` | One row per show: date, venue, price/currency, attendance, sound quality |
 | `locations` | Venue coordinates (latitude/longitude, WGS 84) |
-| `durations` | Per-track duration data, keyed by `gid`, parsed from MP3 tag data |
+| `durations` | Per-track duration data, extracted from MP3 metadata |
 | `discography` | Release dates for the Fugazi studio albums and EPs |
 | `songs` | Details of each song in the studio discography: release, vocals, instrumentals |
-| `bands` | One row per show and band Fugazi played with, keyed by `gid` |
+| `bands` | One row per show and band that played with Fugazi |
 
 Each table is a set of data - corrected and reformatted, but not joined,
 summarized, or modelled. 
