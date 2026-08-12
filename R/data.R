@@ -85,13 +85,13 @@
 #' \describe{
 #' \item{gid}{show id. References \code{\link{shows}}}
 #' \item{track}{Track number within each album}
-#' \item{song}{Track name. References \code{\link{songs}}}
+#' \item{title}{Track name. References \code{\link{songs}}}
 #' \item{duration}{Track duration, an hms `Period` object}
 #' }
 #' @section Notes: MP3 tags were edited to get a consistent format for each album,
 #' and some corrections were made.
 #' join \code{\link{shows}} on `gid` to attach a show's date and other details.
-#' join \code{\link{songs}} on `song` to attach details of each song.
+#' join \code{\link{songs}} on `title` to attach details of each song.
 #' @examplesIf requireNamespace("dplyr", quietly = TRUE)
 #' # to calculate total duration summed across all tracks. Duration is converted to seconds,
 #' # then summed, then converted back to period format which displays time in normal units.
@@ -110,9 +110,9 @@
 #'
 #' @format Data frame with 11 observations of 3 variables.
 #' \describe{
-#' \item{releaseid}{numeric id in ascending chronological order, references \code{\link{songs}}}
-#' \item{release}{release name}
-#' \item{releasedate}{Release date, in format YYYY-MM-DD.}
+#' \item{rid}{numeric id in ascending chronological order, references \code{\link{songs}}}
+#' \item{release_title}{release name}
+#' \item{release_date}{Release date, in format YYYY-MM-DD.}
 #' }
 #' @section Notes:
 #' | Release | Release date source |
@@ -142,8 +142,8 @@
 #' @source https://web.archive.org/web/20201112000517/http://en.wikipedia.org/wiki/Fugazi_discography
 #' @format Data frame with 92 observations of 8 variables.
 #' \describe{
-#' \item{song}{The name of the song - can be used to join this table with \code{\link{durations}}}
-#' \item{releaseid}{numeric id of the release the song appears on, references \code{\link{discography}}}
+#' \item{title}{The name of the song - can be used to join this table with \code{\link{durations}}}
+#' \item{rid}{numeric id of the release the song appears on, references \code{\link{discography}}}
 #' \item{release_track}{The song's track number on the studio release (distinct from \code{\link{durations}}'s `track`, which numbers a specific live recording)}
 #' \item{instrumental}{Indicates whether or not the piece is an instrumental}
 #' \item{vocals_picciotto}{indicates whether or not Guy Picciotto sang lead vocals on this track}
@@ -152,10 +152,10 @@
 #' \item{release_duration}{The song's duration on its studio release, an hms `Period` object (same format as \code{\link{durations}}'s `duration`)}
 #' }
 #' @examplesIf requireNamespace("dplyr", quietly = TRUE)
-#' # join the discography and songs data frames, order by releaseid and release_track
+#' # join the discography and songs data frames, order by rid and release_track
 #' discography |>
 #' dplyr::left_join(songs) |>
-#' dplyr::arrange(releaseid, release_track)
+#' dplyr::arrange(rid, release_track)
 "songs"
 
 # Bands played with --------------------------------------------------------

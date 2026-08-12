@@ -7,8 +7,8 @@
 \format{
 Data frame with 92 observations of 8 variables.
 \describe{
-\item{song}{The name of the song - can be used to join this table with \code{\link{durations}}}
-\item{releaseid}{numeric id of the release the song appears on, references \code{\link{discography}}}
+\item{title}{The name of the song - can be used to join this table with \code{\link{durations}}}
+\item{rid}{numeric id of the release the song appears on, references \code{\link{discography}}}
 \item{release_track}{The song's track number on the studio release (distinct from \code{\link{durations}}'s \code{track}, which numbers a specific live recording)}
 \item{instrumental}{Indicates whether or not the piece is an instrumental}
 \item{vocals_picciotto}{indicates whether or not Guy Picciotto sang lead vocals on this track}
@@ -30,10 +30,10 @@ lead vocals were shared.
 }
 \examples{
 \dontshow{if (requireNamespace("dplyr", quietly = TRUE)) withAutoprint(\{ # examplesIf}
-# join the discography and songs data frames, order by releaseid and release_track
+# join the discography and songs data frames, order by rid and release_track
 discography |>
 dplyr::left_join(songs) |>
-dplyr::arrange(releaseid, release_track)
+dplyr::arrange(rid, release_track)
 \dontshow{\}) # examplesIf}
 }
 \keyword{datasets}

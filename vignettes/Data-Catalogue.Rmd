@@ -32,9 +32,9 @@ own data. Each table has been cleaned, corrected, and reformatted from the sourc
 |---|---|---|
 | `shows` | show | `gid`; `country`+`city`+`venue` |
 | `locations` | venue | `country`+`city`+`venue` |
-| `durations` | tagged MP3 track | `gid`; `song` |
-| `discography` | release (album/EP) | `releaseid` |
-| `songs` | song | `song` (title); `releaseid` |
+| `durations` | tagged MP3 track | `gid`; `title` |
+| `discography` | release (album/EP) | `rid` |
+| `songs` | song | `title`; `rid` |
 | `bands` | show + band | `gid` |
 
 ## Joining tables
@@ -76,31 +76,31 @@ shows_locations <- shows |>
 shows_locations
 ```
 
-### `song` - song metadata
+### `title` - song metadata
 
-`songs` is keyed by `song` (the song title, as text), and carries
+`songs` is keyed by `title` (the song title, as text), and carries
 studio discography metadata (release, vocals, instrumental, duration).
-`durations` is also keyed by `song` text for each tagged track - join the two
+`durations` is also keyed by `title` text for each tagged track - join the two
 to attach song metadata to a specific live rendition.
 
 ```{r}
 # every recorded track, with song information
 durations_songs <- durations |>
-  left_join(songs, by = "song")
+  left_join(songs, by = "title")
 
 durations_songs
 ```
 
-### `releaseid` - discography structure
+### `rid` - discography structure
 
-`discography` is keyed by `releaseid`, referenced by `songs$releaseid`.
+`discography` is keyed by `rid`, referenced by `songs$rid`.
 
 ```{r}
 # every song, with its release's name and date
 songs_discography <- songs |>
-  left_join(discography, by = "releaseid") |>
-  select(song, release_track, release, releasedate) |>
-  arrange(releasedate, release_track)
+  left_join(discography, by = "rid") |>
+  select(title, release_track, release_title, release_date) |>
+  arrange(release_date, release_track)
 
 songs_discography
 ```
