@@ -6,12 +6,11 @@
 \alias{fugazibase-package}
 \title{fugazibase: Tidy Data from the Fugazi Live Series}
 \description{
-Tidy, corrected reference data documenting the live performance history
+Tidy reference data documenting the live performance history
 of the band Fugazi - show listings, venue coordinates, durations, and
-discography metadata - sourced primarily from the Fugazi Live Series
-website maintained by Dischord Records. See
-\code{vignette("Data-Catalogue", package = "fugazibase")} for a full
-description of every table and the keys used to join them together.
+discography - sourced primarily from the Fugazi Live Series
+website maintained by Dischord Records. See \code{vignette("Data-Catalogue", package = "fugazibase")}
+for a full description of every table and the variables used to join them together.
 }
 \seealso{
 Useful links:

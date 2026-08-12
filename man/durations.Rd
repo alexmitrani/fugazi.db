@@ -7,10 +7,10 @@
 \format{
 Data frame with 24513 observations and 4 variables.
 \describe{
-\item{gid}{show id. References \code{\link{shows}}}
-\item{track}{Track number within each album}
-\item{title}{Track name. References \code{\link{songs}}}
-\item{duration}{Track duration, an hms \code{Period} object}
+\item{gid}{Gig id. Can be used to join with \code{\link{shows}}}
+\item{track}{Track number within each live recording}
+\item{title}{Track title. Can be used to join with \code{\link{songs}}}
+\item{duration}{Track duration. This is an hms \code{Period} object}
 }
 }
 \source{
@@ -21,12 +21,12 @@ durations
 }
 \description{
 Duration data for each Fugazi Live Series audio track,
-extracted from MP3 files with \href{https://kid3.kde.org/}{kid3}.
+extracted from the MP3 files.
 }
 \section{Notes}{
- MP3 tags were edited to get a consistent format for each album,
+ MP3 tags were edited to get a consistent format for each album title,
 and some corrections were made.
-join \code{\link{shows}} on \code{gid} to attach a show's date and other details.
+join \code{\link{shows}} on \code{gid} to attach details of each show.
 join \code{\link{songs}} on \code{title} to attach details of each song.
 }
 

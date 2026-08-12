@@ -7,8 +7,8 @@
 \format{
 Data frame with 11 observations of 3 variables.
 \describe{
-\item{rid}{numeric id in ascending chronological order, references \code{\link{songs}}}
-\item{release_title}{release name}
+\item{rid}{Release id in ascending chronological order, can be used to join with \code{\link{songs}}}
+\item{release_title}{Release name}
 \item{release_date}{Release date, in format YYYY-MM-DD.}
 }
 }

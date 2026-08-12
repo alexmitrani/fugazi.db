@@ -62,7 +62,7 @@
 #' @format Data frame with 754 observations and 5 variables.
 #' \describe{
 #' \item{country}{Country}
-#' \item{city}{City name (e.g. "Portland", "Columbia", "Croydon"), matching \code{\link{shows}}'s `city` column so the two tables join cleanly. Not unique by itself within a country: a handful of cities share a name with another tour stop (Portland, Columbia, Croydon, Newcastle, Oxford, Springfield) - join on `country`, `city`, and `venue` together to identify a specific location.}
+#' \item{city}{City name (e.g. "Portland", "Columbia", "Newcastle"), consistent with \code{\link{shows}}'s `city` column. Not necessarily unique by itself: there are a few cases of cities which share the same name (Portland, Columbia, Croydon, Newcastle, Oxford, Springfield) - join on `country`, `city`, and `venue` together to identify a specific location.}
 #' \item{venue}{Venue name}
 #' \item{latitude}{Latitude, in decimal degrees, using the WGS 84 datum}
 #' \item{longitude}{Longitude, in decimal degrees, using the WGS 84 datum}

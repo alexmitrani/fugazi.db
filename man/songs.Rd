@@ -7,14 +7,14 @@
 \format{
 Data frame with 92 observations of 8 variables.
 \describe{
-\item{title}{The name of the song - can be used to join this table with \code{\link{durations}}}
-\item{rid}{numeric id of the release the song appears on, references \code{\link{discography}}}
-\item{release_track}{The song's track number on the studio release (distinct from \code{\link{durations}}'s \code{track}, which numbers a specific live recording)}
+\item{title}{The title of the song - can be used to join with \code{\link{durations}}}
+\item{rid}{Release id of the album or EP the song appears on, can be used to join with \code{\link{discography}}}
+\item{release_track}{The song's track number on the studio release}
 \item{instrumental}{Indicates whether or not the piece is an instrumental}
-\item{vocals_picciotto}{indicates whether or not Guy Picciotto sang lead vocals on this track}
-\item{vocals_mackaye}{indicates whether or not Ian Mackaye sang lead vocals on this track}
-\item{vocals_lally}{indicates whether or not Joe Lally sang lead vocals on this track}
-\item{release_duration}{The song's duration on its studio release, an hms \code{Period} object (same format as \code{\link{durations}}'s \code{duration})}
+\item{vocals_picciotto}{Indicates whether or not Guy Picciotto sang lead vocals}
+\item{vocals_mackaye}{Indicates whether or not Ian Mackaye sang lead vocals}
+\item{vocals_lally}{Indicates whether or not Joe Lally sang lead vocals}
+\item{release_duration}{The song's duration on the corresponding studio release, an hms \code{Period} object.}
 }
 }
 \source{
@@ -24,9 +24,8 @@ https://web.archive.org/web/20201112000517/http://en.wikipedia.org/wiki/Fugazi_d
 songs
 }
 \description{
-One row per song in the Fugazi studio discography, from Wikipedia. The
-variables attributing lead vocals are simplifications in some cases where
-lead vocals were shared.
+One row per song in the Fugazi studio discography. The
+variables attributing lead vocals are simplifications in cases where lead vocals were shared.
 }
 \examples{
 \dontshow{if (requireNamespace("dplyr", quietly = TRUE)) withAutoprint(\{ # examplesIf}

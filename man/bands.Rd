@@ -7,7 +7,7 @@
 \format{
 Data frame with 1669 observations of 2 variables.
 \describe{
-\item{gid}{show id, can be used to join with \code{\link{shows}}}
+\item{gid}{Gig id, can be used to join with \code{\link{shows}}}
 \item{band}{Band name}
 }
 }

@@ -8,7 +8,7 @@
 Data frame with 754 observations and 5 variables.
 \describe{
 \item{country}{Country}
-\item{city}{City name (e.g. "Portland", "Columbia", "Croydon"), matching \code{\link{shows}}'s \code{city} column so the two tables join cleanly. Not unique by itself within a country: a handful of cities share a name with another tour stop (Portland, Columbia, Croydon, Newcastle, Oxford, Springfield) - join on \code{country}, \code{city}, and \code{venue} together to identify a specific location.}
+\item{city}{City name (e.g. "Portland", "Columbia", "Newcastle"), consistent with \code{\link{shows}}'s \code{city} column. Not necessarily unique by itself: there are a few cases of cities which share the same name (Portland, Columbia, Croydon, Newcastle, Oxford, Springfield) - join on \code{country}, \code{city}, and \code{venue} together to identify a specific location.}
 \item{venue}{Venue name}
 \item{latitude}{Latitude, in decimal degrees, using the WGS 84 datum}
 \item{longitude}{Longitude, in decimal degrees, using the WGS 84 datum}
@@ -22,8 +22,8 @@ Venue coordinates for the Fugazi Live Series, hand-curated with reference to
 the available information for each show on the Fugazi Live Series website and elsewhere.
 }
 \section{Notes}{
- Precision of the coordinates will vary
-depending on the available information in each case.
+ The precision of the coordinates will vary
+depending on whether or not there was an address, map or directions in the show information.
 }
 
 \examples{

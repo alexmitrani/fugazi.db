@@ -7,8 +7,8 @@
 \format{
 Data frame with 1049 observations and 15 variables.
 \describe{
-\item{gid}{show id - a slug built from city, country, and date (e.g. "washington-dc-usa-90387"); the primary key of this table and of every other table in this package that has a \code{gid} column}
-\item{flsid}{Fugazi Live Series id}
+\item{gid}{Gig id - a slug built from city, country, and date (e.g. "washington-dc-usa-90387"). This can be used to link to the Fugazi Live Series page for each show.}
+\item{flsid}{Fugazi Live Series id as specified on the details page of each show on the Fugazi Live Series website.}
 \item{date}{Show date, in format YYYY-MM-DD}
 \item{venue}{Venue}
 \item{price}{Door price, numeric}
@@ -18,8 +18,8 @@ Data frame with 1049 observations and 15 variables.
 \item{mastered_by}{Mastered by}
 \item{original_source}{Original source}
 \item{tour}{The touring period the show belongs to, scraped from the FLS listing pages' own tour headings}
-\item{city}{City - plain city name (e.g. "Portland", "Columbia", "Croydon"); see \code{subdivision}/\code{country} to disambiguate cities that share a name with another Fugazi tour stop}
-\item{subdivision}{Subnational administrative unit (US state, DC, Canadian province, Australian state/territory, or Brazilian state), where applicable (\code{NA} elsewhere)}
+\item{city}{City name - use \code{subdivision} and \code{country} to disambiguate cities that might share a name with another Fugazi tour stop}
+\item{subdivision}{Subnational administrative unit (US state, DC, Canadian province, Australian state/territory, or Brazilian state), where applicable (\code{NA} elsewhere). These are ISO 3166-2 codes.}
 \item{country}{Country}
 \item{sound_quality}{Sound quality rating: Excellent, Very Good, Good, or Poor}
 }
@@ -35,7 +35,7 @@ One row per show. Door price text split into price and currency variables.
 Subdivision corrected, patched and extended to include Brazilian states.
 }
 \section{Notes}{
- Venue coordinates are not included here; join \code{\link{locations}} on \code{country}, \code{city}, and \code{venue} to attach them.
+ join \code{\link{locations}} on \code{country}, \code{city}, and \code{venue} to attach venue coordinates.
 }
 
 \examples{
@@ -46,6 +46,12 @@ dplyr::group_by(sound_quality) |>
 dplyr::summarize(number_shows = dplyr::n()) |>
 dplyr::ungroup() |>
 dplyr::arrange(desc(number_shows))
+#
+# to get a summary of shows by tour:
+shows |> dplyr::group_by(tour) |>
+dplyr::summarise(start_date = min(date), end_date = max(date), shows = dplyr::n()) |>
+dplyr::ungroup() |>
+dplyr::arrange(start_date)
 \dontshow{\}) # examplesIf}
 }
 \keyword{datasets}
